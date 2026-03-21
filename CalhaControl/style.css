@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+/* MENU */
+.sidebar {
+    width: 200px;
+    background: radial-gradient(circle, #2c7dc8, #121d36);
+    color: white;
+    height: 100vh;
+    padding: 20px;
+}
+
+.sidebar footer {
+    padding: 5px;
+    text-align: center;
+    color: rgb(157, 157, 157);
+    position: fixed;
+    bottom: 0;
+    font-size: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+}
+
+/* CONTEÚDO */
+.main {
+    flex: 1;
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* TABELA */
+.tabela {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 200px;
+}
