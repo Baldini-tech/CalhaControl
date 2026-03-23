@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Orçamentos - CalhaControl</title>
+		<link rel="stylesheet" href="style.css" />
+
+		<!-- Font Awesome -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		/>
+	</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+		<!-- SIDEBAR -->
+		<div class="sidebar">
+			<div>
+				<img
+					src="/CalhaControl/img/calhacontrol_transparente.png"
+					class="logo"
+				/>
+			</div>
+			<ul>
+				<li>
+					<a href="index.html"
+						><i class="fa-solid fa-chart-line"></i> Dashboard</a
+					>
+				</li>
+				<li>
+					<a href="clientes.html"><i class="fa-solid fa-users"></i> Clientes</a>
+				</li>
+				<li>
+					<a href="orcamentos.html" class="active"
+						><i class="fa-solid fa-file-invoice"></i> Orçamentos</a
+					>
+				</li>
+				<li>
+					<a href="servicos.html"
+						><i class="fa-solid fa-screwdriver-wrench"></i> Serviços</a
+					>
+				</li>
+			</ul>
+		</div>
+
+		<!-- MAIN -->
+		<div class="main">
+			<h1>Orçamentos</h1>
+
+			<!-- FORM -->
+			<div class="card">
+				<h3>Novo Orçamento</h3>
+
+				<input type="text" id="cliente" placeholder="Nome do Cliente" />
+
+				<table id="tabelaItens">
+					<thead>
+						<tr>
+							<th>Serviço</th>
+							<th>Corte</th>
+							<th>Metros</th>
+							<th>Valor/m</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody id="itens"></tbody>
+				</table>
+
+				<button onclick="adicionarItem()">+ Adicionar Serviço</button>
+
+				<h3>Total Geral: <span id="totalGeral">R$ 0.00</span></h3>
+
+				<button onclick="salvarOrcamento()">Salvar Orçamento</button>
+
+				<select id="status">
+					<option value="pendente">Pendente</option>
+					<option value="aprovado">Aprovado</option>
+					<option value="recusado">Recusado</option>
+				</select>
+			</div>
+
+			<!-- LISTA -->
+			<div class="tabela">
+				<h2>Lista de Orçamentos</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Cliente</th>
+							<th>Serviço</th>
+							<th>Valor</th>
+							<th>Status</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody id="listaOrcamentos"></tbody>
+				</table>
+			</div>
+		</div>
+
+		<script src="orcamentos.js"></script>
+	</body>
+</html>

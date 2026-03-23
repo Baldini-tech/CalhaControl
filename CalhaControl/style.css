@@ -7,33 +7,83 @@ body {
 /* MENU */
 .sidebar {
     width: 200px;
-    background: radial-gradient(circle, #2c7dc8, #121d36);
+    background: radial-gradient(circle, #002344, #001222 );
     color: white;
     height: 100vh;
     padding: 20px;
 }
 
-.sidebar footer {
-    padding: 5px;
-    text-align: center;
-    color: rgb(157, 157, 157);
-    position: fixed;
-    bottom: 0;
-    font-size: 20px;
+.sidebar i {
+    font-size: 16px;
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin-top: 20%;
 }
 
 .sidebar ul li {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    border-radius: 10px;
     color: white;
     text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+.sidebar a.active {
+    background: white;
+    color: #1f6feb;
+    font-weight: bold;
+}
+
+.sidebar i {
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.sidebar li {
+    position: relative;
+}
+
+.sidebar a.active i {
+    color: #1f6feb;
+}
+
+.sidebar a:hover i {
+    transform: scale(1.2);
+}
+
+.sidebar a.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 5px;
+    height: 40px;
+    background: #1f6feb;
+    border-radius: 0 5px 5px 0;
+}
+
+.sidebar footer {
+    padding: 26px;
+    text-align: center;
+    opacity: calc(0.5);
+    color: rgb(255, 255, 255);
+    position: fixed;
+    bottom: 0;
+    font-size: 15px;
 }
 
 /* CONTEÚDO */
@@ -81,4 +131,81 @@ th, td {
     background-color: #fff;
     border-radius: 10px;
     width: 200px;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+}
+
+/* Clientes */
+input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px;
+    background: #1f6feb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0f2a44;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+}
+
+.pendente {
+    background: #f0ad4e;
+}
+
+.aprovado {
+    background: #28a745;
+}
+
+.recusado {
+    background: #dc3545;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+}
+
+.pendente {
+    background: #f0ad4e;
+}
+
+.andamento {
+    background: #17a2b8;
+}
+
+.finalizado {
+    background: #28a745;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.menu-link:hover {
+    background: rgba(255,255,255,0.15);
 }

@@ -1,80 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>CalhaControl - Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>CalhaControl - Dashboard</title>
+		<link rel="stylesheet" href="style.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		/>
+	</head>
+	<body>
+		<!-- MENU LATERAL -->
 
-    <!-- MENU LATERAL -->
-        
-    <div class="sidebar">
-           
-        <div>
-            <img src="/CalhaControl/img/calhacontrol_transparente.png" class="logo">
-        </div>
-        <footer class="footer">
-            <p>© 2026 CalhaControl.</p>
-        </footer>
-        <ul>
-            <li><a href="index.html">Dashboard</a></li>
-            <li><a href="clientes.html">Clientes</a></li>
-            <li><a href="orcamentos.html">Orçamentos</a></li>
-            <li><a href="servicos.html">Serviços</a></li>
-        </ul>
-    </div>
+		<div class="sidebar">
+			<div>
+				<img
+					src="/CalhaControl/img/calhacontrol_transparente.png"
+					class="logo"
+				/>
+			</div>
+			<footer class="footer">
+				<p>© 2026 CalhaControl.</p>
+			</footer>
+			<ul>
+				<li>
+					<a href="index.html" class="active"
+						><i class="fa-solid fa-chart-line"></i>Dashboard</a
+					>
+				</li>
+				<li>
+					<a href="clientes.html"><i class="fa-solid fa-users"></i>Clientes</a>
+				</li>
+				<li>
+					<a href="orcamentos.html"
+						><i class="fa-solid fa-file-invoice"></i>Orçamentos</a
+					>
+				</li>
+				<li>
+					<a href="servicos.html"
+						><i class="fa-solid fa-screwdriver-wrench"></i>Serviços</a
+					>
+				</li>
+			</ul>
+		</div>
 
-    
+		<!-- CONTEÚDO PRINCIPAL -->
+		<div class="main">
+			<header>
+				<h1>Dashboard</h1>
+			</header>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <div class="main">
-        <header>
-            <h1>Dashboard</h1>
-        </header>
+			<!-- CARDS -->
+			<div class="cards">
+				<div class="card">
+					<h3>Clientes</h3>
+					<p id="totalClientes">0</p>
+				</div>
 
-        <!-- CARDS -->
-        <div class="cards">
-                
-            <div class="card">
-                <h3>Clientes</h3>
-                <p id="totalClientes">0</p>
-            </div>
+				<div class="card">
+					<h3>Orçamentos</h3>
+					<p id="totalOrcamentos">0</p>
+				</div>
 
-            <div class="card">
-                <h3>Orçamentos</h3>
-                <p id="totalOrcamentos">0</p>
-            </div>
+				<div class="card">
+					<h3>Serviços</h3>
+					<p id="totalServicos">0</p>
+				</div>
+			</div>
 
-            <div class="card">
-                <h3>Serviços</h3>
-                <p id="totalServicos">0</p>
-            </div>
-        </div>
+			<!-- TABELA RECENTE -->
+			<div class="tabela">
+				<h2>Últimos Serviços</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Cliente</th>
+							<th>Serviço</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody id="listaServicos">
+						<!-- Dados virão do JavaScript -->
+					</tbody>
+				</table>
+			</div>
+		</div>
 
-        <!-- TABELA RECENTE -->
-        <div class="tabela">
-            <h2>Últimos Serviços</h2>
-            <table>
-                
-                <thead>
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Serviço</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="listaServicos">
-                    <!-- Dados virão do JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <footer class="footer">
-        <p>© 2026 CalhaControl. Todos os direitos reservados.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
+		<script src="script.js"></script>
+	</body>
 </html>

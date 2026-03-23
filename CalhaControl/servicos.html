@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Serviços - CalhaControl</title>
+		<link rel="stylesheet" href="style.css" />
+
+		<!-- Font Awesome -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		/>
+	</head>
+	<body>
+		<!-- SIDEBAR -->
+		<div class="sidebar">
+			<div>
+				<img
+					src="/CalhaControl/img/calhacontrol_transparente.png"
+					class="logo"
+				/>
+			</div>
+			<ul>
+				<li>
+					<a href="index.html"
+						><i class="fa-solid fa-chart-line"></i> Dashboard</a
+					>
+				</li>
+				<li>
+					<a href="clientes.html"><i class="fa-solid fa-users"></i> Clientes</a>
+				</li>
+				<li>
+					<a href="orcamentos.html"
+						><i class="fa-solid fa-file-invoice"></i> Orçamentos</a
+					>
+				</li>
+				<li>
+					<a href="servicos.html" class="active"
+						><i class="fa-solid fa-screwdriver-wrench"></i> Serviços</a
+					>
+				</li>
+			</ul>
+		</div>
+
+		<!-- MAIN -->
+		<div class="main">
+			<h1>Serviços</h1>
+
+			<!-- FORM -->
+			<div class="card">
+				<h3>Novo Serviço</h3>
+
+				<input type="text" id="cliente" placeholder="Nome do Cliente" />
+				<input type="text" id="descricao" placeholder="Descrição do Serviço" />
+				<input type="date" id="data" />
+
+				<select id="status">
+					<option value="pendente">Pendente</option>
+					<option value="andamento">Em andamento</option>
+					<option value="finalizado">Finalizado</option>
+				</select>
+
+				<button onclick="cadastrarServico()">Salvar</button>
+			</div>
+
+			<!-- LISTA -->
+			<div class="tabela">
+				<h2>Lista de Serviços</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Cliente</th>
+							<th>Serviço</th>
+							<th>Data</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody id="listaServicos"></tbody>
+				</table>
+			</div>
+		</div>
+
+		<script src="servicos.js"></script>
+	</body>
+</html>
