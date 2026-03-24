@@ -195,6 +195,16 @@ button:hover {
     background: #28a745;
 }
 
+#tabelaLista {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#tabelaLista th:nth-child(1), #tabelaLista td:nth-child(1) { width: 20%; text-align: left;}
+#tabelaLista th:nth-child(2), #tabelaLista td:nth-child(2) { width: 20%; text-align: center; }
+#tabelaLista th:nth-child(3), #tabelaLista td:nth-child(3) { width: 20%; text-align: center; }
+#tabelaLista th:nth-child(4), #tabelaLista td:nth-child(4) { width: 20%; text-align: center; }
+
 .menu-link {
     display: flex;
     align-items: center;

@@ -43,7 +43,7 @@ function atualizarCalculo(linha) {
 		let c = parseFloat(corte.value) || 0;
 		let v = parseFloat(valorMetro.value) || 0;
 
-		let resultado = m * v + c;
+		let resultado = v * c * m;
 
 		total.innerHTML = "R$ " + resultado.toFixed(2);
 		atualizarTotalGeral();
@@ -125,7 +125,7 @@ function listarOrcamentos() {
 		lista.innerHTML += `
         <tr>
             <td>${o.cliente}</td>
-            <td>${o.status}</td>
+            <td><span class="status ${o.status}">${o.status.charAt(0).toUpperCase() + o.status.slice(1)}</span></td>
             <td>${o.totalGeral}</td>
             <td>
                 <button onclick="editar(${index})">✏️</button>
