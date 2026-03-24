@@ -200,10 +200,17 @@ button:hover {
     width: 100%;
 }
 
+/* alinhamentos das tabela em orçamentos */
 #tabelaLista th:nth-child(1), #tabelaLista td:nth-child(1) { width: 20%; text-align: left;}
 #tabelaLista th:nth-child(2), #tabelaLista td:nth-child(2) { width: 20%; text-align: center; }
 #tabelaLista th:nth-child(3), #tabelaLista td:nth-child(3) { width: 20%; text-align: center; }
 #tabelaLista th:nth-child(4), #tabelaLista td:nth-child(4) { width: 20%; text-align: center; }
+
+/* alinhamento das tabelas em serviços */
+#tabelaServicos th:nth-child(1), #tabelaServicos td:nth-child(1) { width: 20%; text-align: left;}
+#tabelaServicos th:nth-child(2), #tabelaServicos td:nth-child(2) { width: 20%; text-align: center; }
+#tabelaServicos th:nth-child(3), #tabelaServicos td:nth-child(3) { width: 20%; text-align: center; }
+#tabelaServicos th:nth-child(4), #tabelaServicos td:nth-child(4) { width: 20%; text-align: center; }
 
 .menu-link {
     display: flex;

@@ -5,10 +5,10 @@ function salvar() {
 }
 
 function cadastrarServico() {
-	let cliente = document.getElementById("Cliente").value;
-	let descricao = document.getElementById("Descricao").value;
-	let data = document.getElementById("Data").value;
-	let status = document.getElementById("Status").value;
+	let cliente = document.getElementById("cliente").value;
+	let descricao = document.getElementById("descricao").value;
+	let data = document.getElementById("data").value;
+	let status = document.getElementById("status").value;
 
 	if (cliente === "" || descricao === "" || data === "") {
 		alert("Preencha todos os campos!");
@@ -22,9 +22,9 @@ function cadastrarServico() {
 	listarServicos();
 
 	// limpar
-	document.getElementById("Cliente").value = "";
-	document.getElementById("Descricao").value = "";
-	document.getElementById("Data").value = "";
+	document.getElementById("cliente").value = "";
+	document.getElementById("descricao").value = "";
+	document.getElementById("data").value = "";
 }
 
 function listarServicos() {

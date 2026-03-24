@@ -1,45 +1,18 @@
-// ===== DADOS =====
-let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
-let orcamentos = JSON.parse(localStorage.getItem("Orcamentos")) || [];
-let servicos = JSON.parse(localStorage.getItem("Servicos")) || [];
+const clientes   = JSON.parse(localStorage.getItem("Clientes"))   || [];
+const orcamentos = JSON.parse(localStorage.getItem("orcamentos")) || [];
+const servicos   = JSON.parse(localStorage.getItem("Servicos"))   || [];
 
-// ===== ATUALIZAR DASHBOARD =====
-function atualizarDashboard() {
-    document.getElementById("totalClientes").innerText = clientes.length;
-    document.getElementById("totalOrcamentos").innerText = orcamentos.length;
-    document.getElementById("totalServicos").innerText = servicos.length;
-}
+document.getElementById("totalClientes").innerText   = clientes.length;
+document.getElementById("totalOrcamentos").innerText = orcamentos.length;
+document.getElementById("totalServicos").innerText   = servicos.length;
 
-// ===== LISTAR SERVIÇOS =====
-function listarServicos() {
-    let tabela = document.getElementById("listaServicos");
-    tabela.innerHTML = "";
-
-    servicos.forEach(servico => {
-        let linha = `
-            <tr>
-                <td>${servico.cliente}</td>
-                <td>${servico.tipo}</td>
-                <td>${servico.status}</td>
-            </tr>
-        `;
-        tabela.innerHTML += linha;
-    });
-}
-
-// ===== SALVAR DADOS =====
-function salvarDados() {
-    localStorage.setItem("clientes", JSON.stringify(clientes));
-    localStorage.setItem("orcamentos", JSON.stringify(orcamentos));
-    localStorage.setItem("servicos", JSON.stringify(servicos));
-}
-
-// ===== INICIALIZAÇÃO =====
-function iniciarSistema() {
-    dadosTeste();
-    atualizarDashboard();
-    listarServicos();
-}
-
-// Executa quando abrir a página
-iniciarSistema();
+const tabela = document.getElementById("listaServicos");
+servicos.slice(-5).reverse().forEach(s => {
+    tabela.innerHTML += `
+        <tr>
+            <td>${s.cliente}</td>
+            <td>${s.descricao}</td>
+            <td><span class="status ${s.status}">${s.status.charAt(0).toUpperCase() + s.status.slice(1)}</span></td>
+        </tr>
+    `;
+});
