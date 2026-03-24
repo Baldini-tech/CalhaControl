@@ -6,6 +6,17 @@ function salvar() {
 	localStorage.setItem("orcamentos", JSON.stringify(orcamentos));
 }
 
+function carregarClientes() {
+	let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
+	let select = document.getElementById("cliente");
+	let valorAtual = select.value;
+	select.innerHTML = "<option value=''>Selecione o Cliente</option>";
+	clientes.forEach(c => {
+		select.innerHTML += `<option value="${c.nome}">${c.nome}</option>`;
+	});
+	if (valorAtual) select.value = valorAtual;
+}
+
 // 🔥 ADICIONAR LINHA
 function adicionarItem() {
 	const tabela = document.getElementById("itens");
@@ -73,7 +84,7 @@ function salvarOrcamento() {
 	let status = document.getElementById("status").value;
 
 	if (cliente === "") {
-		alert("Digite o nome do cliente!");
+		alert("Selecione o cliente!");
 		return;
 	}
 
@@ -230,4 +241,5 @@ function calcularFaturamento() {
 }
 
 // 🔥 INICIAR
+carregarClientes();
 listarOrcamentos();

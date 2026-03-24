@@ -15,6 +15,9 @@
 		<!-- SIDEBAR -->
 		<div class="sidebar">
 			<div>
+				<footer class="footer">
+					<p>™ 2026 CalhaControl.</p>
+				</footer>
 				<img
 					src="/CalhaControl/img/calhacontrol_transparente.png"
 					class="logo"
@@ -50,13 +53,16 @@
 			<div class="card">
 				<h3>Novo Serviço</h3>
 
-				<input type="text" id="cliente" placeholder="Nome do Cliente" />
+				<select id="cliente">
+					<option value="">Selecione o Cliente</option>
+				</select>
 				<input type="text" id="descricao" placeholder="Descrição do Serviço" />
 				<input type="date" id="data" />
 
 				<select id="status">
 					<option value="pendente">Pendente</option>
 					<option value="andamento">Em andamento</option>
+					<option value="recusado">Recusado</option>
 					<option value="finalizado">Finalizado</option>
 				</select>
 
@@ -73,6 +79,7 @@
 							<th>Serviço</th>
 							<th>Data</th>
 							<th>Status</th>
+							<th>Ações</th>
 						</tr>
 					</thead>
 					<tbody id="listaServicos"></tbody>

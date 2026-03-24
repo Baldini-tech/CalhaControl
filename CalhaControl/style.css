@@ -176,17 +176,6 @@ button:hover {
     background: #dc3545;
 }
 
-.status {
-    padding: 5px 10px;
-    border-radius: 6px;
-    color: white;
-    font-size: 12px;
-}
-
-.pendente {
-    background: #f0ad4e;
-}
-
 .andamento {
     background: #17a2b8;
 }
@@ -205,6 +194,18 @@ button:hover {
 #tabelaLista th:nth-child(2), #tabelaLista td:nth-child(2) { width: 20%; text-align: center; }
 #tabelaLista th:nth-child(3), #tabelaLista td:nth-child(3) { width: 20%; text-align: center; }
 #tabelaLista th:nth-child(4), #tabelaLista td:nth-child(4) { width: 20%; text-align: center; }
+
+/* alinhamentos das tabela em deshboard */
+#tabelaDeshboard th:nth-child(1), #tabelaDeshboard td:nth-child(1) { width: 20%; text-align: left;}
+#tabelaDeshboard th:nth-child(2), #tabelaDeshboard td:nth-child(2) { width: 20%; text-align: center; }
+#tabelaDeshboard th:nth-child(3), #tabelaDeshboard td:nth-child(3) { width: 20%; text-align: center; }
+#tabelaDeshboard th:nth-child(4), #tabelaDeshboard td:nth-child(4) { width: 20%; text-align: center; }
+
+/* alinhamentos das tabela em clientes */
+#tabelaClientes th:nth-child(1), #tabelaClientes td:nth-child(1) { width: 20%; text-align: left;}
+#tabelaClientes th:nth-child(2), #tabelaClientes td:nth-child(2) { width: 20%; text-align: center; }
+#tabelaClientes th:nth-child(3), #tabelaClientes td:nth-child(3) { width: 20%; text-align: center; }
+#tabelaClientes th:nth-child(4), #tabelaClientes td:nth-child(4) { width: 20%; text-align: center; }
 
 /* alinhamento das tabelas em serviços */
 #tabelaServicos th:nth-child(1), #tabelaServicos td:nth-child(1) { width: 20%; text-align: left;}
