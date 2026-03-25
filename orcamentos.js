@@ -28,6 +28,7 @@ function adicionarItem() {
         <td><input type="number" class="corte" placeholder="0"></td>
         <td><input type="number" class="metros" placeholder="0"></td>
         <td><input type="number" class="valorMetro" placeholder="0"></td>
+        <td><input type="number" class="pu" placeholder="0"></td>
         <td class="total">R$ 0.00</td>
         <td><button onclick="removerLinha(this)">🗑️</button></td>
     `;
@@ -47,14 +48,16 @@ function atualizarCalculo(linha) {
 	const metros = linha.querySelector(".metros");
 	const corte = linha.querySelector(".corte");
 	const valorMetro = linha.querySelector(".valorMetro");
+	const pu = linha.querySelector(".pu");
 	const total = linha.querySelector(".total");
 
 	function calcular() {
 		let m = parseFloat(metros.value) || 0;
 		let c = parseFloat(corte.value) || 0;
 		let v = parseFloat(valorMetro.value) || 0;
+		let p = parseFloat(pu.value) || 0;
 
-		let resultado = v * c * m;
+		let resultado = (v * c * m) + p;
 
 		total.innerHTML = "R$ " + resultado.toFixed(2);
 		atualizarTotalGeral();
@@ -63,6 +66,7 @@ function atualizarCalculo(linha) {
 	metros.addEventListener("input", calcular);
 	corte.addEventListener("input", calcular);
 	valorMetro.addEventListener("input", calcular);
+	pu.addEventListener("input", calcular);
 }
 
 // 🔥 TOTAL GERAL
@@ -95,10 +99,11 @@ function salvarOrcamento() {
 		let corte = linha.children[1].querySelector("input").value;
 		let metros = linha.children[2].querySelector("input").value;
 		let valorMetro = linha.children[3].querySelector("input").value;
-		let total = linha.children[4].innerText;
+		let pu = linha.children[4].querySelector("input").value;
+		let total = linha.children[5].innerText;
 
 		if (servico !== "") {
-			itens.push({ servico, corte, metros, valorMetro, total });
+			itens.push({ servico, corte, metros, valorMetro, pu, total });
 		}
 	});
 
@@ -177,9 +182,11 @@ function editar(index) {
 		linha.children[1].querySelector("input").value = item.corte;
 		linha.children[2].querySelector("input").value = item.metros;
 		linha.children[3].querySelector("input").value = item.valorMetro;
+		linha.children[4].querySelector("input").value = item.pu || 0;
+		linha.children[5].innerText = item.total;
 	});
 
-	atualizarTotalGeral();
+	document.getElementById("totalGeral").innerText = o.totalGeral;
 }
 
 // 🔥 PDF PROFISSIONAL

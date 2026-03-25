@@ -213,6 +213,22 @@ button:hover {
 #tabelaServicos th:nth-child(3), #tabelaServicos td:nth-child(3) { width: 20%; text-align: center; }
 #tabelaServicos th:nth-child(4), #tabelaServicos td:nth-child(4) { width: 20%; text-align: center; }
 
+/* alinhamento tabelas do modal histórico */
+.tabelaHistOrc {
+    table-layout: fixed;
+    width: 100%;
+}
+.tabelaHistOrc th:nth-child(1), .tabelaHistOrc td:nth-child(1) { width: 60%; text-align: left; }
+.tabelaHistOrc th:nth-child(2), .tabelaHistOrc td:nth-child(2) { width: 40%; text-align: center; }
+
+.tabelaHistServ {
+    table-layout: fixed;
+    width: 100%;
+}
+.tabelaHistServ th:nth-child(1), .tabelaHistServ td:nth-child(1) { width: 50%; text-align: left; }
+.tabelaHistServ th:nth-child(2), .tabelaHistServ td:nth-child(2) { width: 25%; text-align: center; }
+.tabelaHistServ th:nth-child(3), .tabelaHistServ td:nth-child(3) { width: 25%; text-align: center; }
+
 .menu-link {
     display: flex;
     align-items: center;
