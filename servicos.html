@@ -2,7 +2,7 @@
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Orçamentos - CalhaControl</title>
+		<title>Serviços - CalhaControl</title>
 		<link rel="stylesheet" href="style.css" />
 
 		<!-- Font Awesome -->
@@ -12,17 +12,13 @@
 		/>
 	</head>
 	<body>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 		<!-- SIDEBAR -->
 		<div class="sidebar">
 			<div>
 				<footer class="footer">
 					<p>™ 2026 CalhaControl.</p>
 				</footer>
-				<img
-					src="/CalhaControl/img/calhacontrol_transparente.png"
-					class="logo"
-				/>
+				<img src="/img/calhacontrol_transparente.png" class="logo" />
 			</div>
 			<ul>
 				<li>
@@ -34,12 +30,12 @@
 					<a href="clientes.html"><i class="fa-solid fa-users"></i> Clientes</a>
 				</li>
 				<li>
-					<a href="orcamentos.html" class="active"
+					<a href="orcamentos.html"
 						><i class="fa-solid fa-file-invoice"></i> Orçamentos</a
 					>
 				</li>
 				<li>
-					<a href="servicos.html"
+					<a href="servicos.html" class="active"
 						><i class="fa-solid fa-screwdriver-wrench"></i> Serviços</a
 					>
 				</li>
@@ -48,61 +44,46 @@
 
 		<!-- MAIN -->
 		<div class="main">
-			<h1>Orçamentos</h1>
+			<h1>Serviços</h1>
 
 			<!-- FORM -->
 			<div class="card">
-				<h3>Novo Orçamento</h3>
+				<h3>Novo Serviço</h3>
 
 				<select id="cliente">
 					<option value="">Selecione o Cliente</option>
 				</select>
-
-				<table id="tabelaItens">
-					<thead>
-						<tr>
-							<th>Serviço</th>
-							<th>Corte</th>
-							<th>Metros</th>
-							<th>Valor/m</th>
-							<th>Total</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody id="itens"></tbody>
-				</table>
-
-				<button onclick="adicionarItem()">+ Adicionar Serviço</button>
-
-				<h3>Total Geral: <span id="totalGeral">R$ 0.00</span></h3>
-
-				<button onclick="salvarOrcamento()">Salvar Orçamento</button>
+				<input type="text" id="descricao" placeholder="Descrição do Serviço" />
+				<input type="date" id="data" />
 
 				<select id="status">
 					<option value="pendente">Pendente</option>
-					<option value="aprovado">Aprovado</option>
+					<option value="andamento">Em andamento</option>
 					<option value="recusado">Recusado</option>
 					<option value="finalizado">Finalizado</option>
 				</select>
+
+				<button onclick="cadastrarServico()">Salvar</button>
 			</div>
 
 			<!-- LISTA -->
 			<div class="tabela">
-				<h2>Lista de Orçamentos</h2>
-				<table id="tabelaLista">
+				<h2>Lista de Serviços</h2>
+				<table id="tabelaServicos">
 					<thead>
 						<tr>
 							<th>Cliente</th>
+							<th>Serviço</th>
+							<th>Data</th>
 							<th>Status</th>
-							<th>Total</th>
 							<th>Ações</th>
 						</tr>
 					</thead>
-					<tbody id="listaOrcamentos"></tbody>
+					<tbody id="listaServicos"></tbody>
 				</table>
 			</div>
 		</div>
 
-		<script src="orcamentos.js"></script>
+		<script src="servicos.js"></script>
 	</body>
 </html>
