@@ -10,7 +10,7 @@ function carregarClientes() {
 	let select = document.getElementById("cliente");
 	let valorAtual = select.value;
 	select.innerHTML = "<option value=''>Selecione o Cliente</option>";
-	clientes.forEach(c => {
+	clientes.forEach((c) => {
 		select.innerHTML += `<option value="${c.nome}">${c.nome}</option>`;
 	});
 	if (valorAtual) select.value = valorAtual;
@@ -32,7 +32,8 @@ function cadastrarServico() {
 	if (editIndex !== null) {
 		servicos[editIndex] = novo;
 		editIndex = null;
-		document.querySelector("button[onclick='cadastrarServico()']").innerText = "Salvar";
+		document.querySelector("button[onclick='cadastrarServico()']").innerText =
+			"Salvar";
 	} else {
 		servicos.push(novo);
 	}
@@ -57,8 +58,8 @@ function listarServicos() {
                 <td>${s.data}</td>
                 <td><span class="status ${s.status}">${s.status.charAt(0).toUpperCase() + s.status.slice(1)}</span></td>
                 <td>
-                    <button onclick="editar(${index})">✏️</button>
-                    <button onclick="excluir(${index})">🗑️</button>
+                    <button title="Editar" onclick="editar(${index})">✏️</button>
+                    <button title="Excluir" onclick="excluir(${index})"><i class="fa-solid fa-trash" style="color: rgb(255, 0, 0);"></i></button>
                 </td>
             </tr>
         `;
@@ -80,7 +81,8 @@ function editar(index) {
 	document.getElementById("descricao").value = s.descricao;
 	document.getElementById("data").value = s.data;
 	document.getElementById("status").value = s.status;
-	document.querySelector("button[onclick='cadastrarServico()']").innerText = "Atualizar";
+	document.querySelector("button[onclick='cadastrarServico()']").innerText =
+		"Atualizar";
 }
 
 carregarClientes();

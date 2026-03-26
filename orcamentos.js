@@ -144,10 +144,10 @@ function listarOrcamentos() {
             <td><span class="status ${o.status}">${o.status.charAt(0).toUpperCase() + o.status.slice(1)}</span></td>
             <td>${o.totalGeral}</td>
             <td>
-                <button onclick="editar(${index})">✏️</button>
-                <button onclick="excluir(${index})">🗑️</button>
-                <button onclick="gerarPDF(${index})">📄</button>
-                <button onclick="enviarWhats(${index})">📲</button>
+                <button title="Editar" onclick="editar(${index})">✏️</button>
+                <button title="Excluir" onclick="excluir(${index})">🗑️</button>
+                <button title="Gerar PDF" onclick="gerarPDF(${index})">📄</button>
+                <button title="Enviar WhatsApp" onclick="enviarWhats(${index})">📲</button>
             </td>
         </tr>
         `;
