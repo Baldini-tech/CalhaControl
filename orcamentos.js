@@ -147,7 +147,7 @@ function listarOrcamentos() {
                 <button title="Editar" onclick="editar(${index})"><i class="fa-solid fa-pen-to-square" style="color: #1f6feb;"></i></button>
                 <button title="Excluir" onclick="excluir(${index})"><i class="fa-solid fa-trash" style="color: rgb(255, 0, 0);"></i></button>
                 <button title="Gerar PDF" onclick="gerarPDF(${index})"><i class="fa-solid fa-file-pdf" style="color: rgb(255, 2, 2);"></i></button>
-                <button title="Enviar WhatsApp" onclick="enviarWhats(${index})"><i class="fa-brands fa-whatsapp" style="color: rgb(7, 166, 118);"></i></button>
+                <button title="Enviar WhatsApp" onclick="enviarWhats(${index})"><i class="fa-brands fa-whatsapp" style="color: rgb(0, 255, 17);"></i></button>
             </td>
         </tr>
         `;

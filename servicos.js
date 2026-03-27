@@ -58,7 +58,7 @@ function listarServicos() {
                 <td>${s.data}</td>
                 <td><span class="status ${s.status}">${s.status.charAt(0).toUpperCase() + s.status.slice(1)}</span></td>
                 <td>
-                    <button title="Editar" onclick="editar(${index})">✏️</button>
+                    <button title="Editar" onclick="editar(${index})"><i class="fa-solid fa-pen-to-square" style="color: #1f6feb;"></i></button>
                     <button title="Excluir" onclick="excluir(${index})"><i class="fa-solid fa-trash" style="color: rgb(255, 0, 0);"></i></button>
                 </td>
             </tr>
