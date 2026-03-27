@@ -45,9 +45,9 @@ function listarClientes() {
                 <td>${c.telefone}</td>
                 <td>${c.endereco}</td>
                 <td>
-                    <button title="Editar" onclick="editar(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button title="Editar" onclick="editar(${index})"><i class="fa-solid fa-pen-to-square" style="color: #1f6feb;"></i></button>
                     <button title="Excluir" onclick="excluir(${index})"><i class="fa-solid fa-trash" style="color: rgb(255, 0, 0);"></i></button>
-                    <button title="Ver Histórico" onclick="verHistorico(${index})"><i class="fa-solid fa-clock" style="color: rgb(0, 102, 255);"></i></button>
+                    <button title="Ver Histórico" onclick="verHistorico(${index})"><i class="fa-solid fa-clock" style="color: #1f6feb;"></i></button>
                 </td>
             </tr>
         `;

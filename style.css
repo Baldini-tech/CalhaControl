@@ -146,10 +146,15 @@ input {
 
 button {
     padding: 10px;
-    color: rgb(0, 0, 0);
+    background: #1f6feb;
+    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+}
+
+button:hover {
+    background: #0f2a44;
 }
 
 .status {
@@ -185,10 +190,10 @@ button {
 }
 
 /* alinhamentos das tabela em orçamentos */
-#tabelaLista th:nth-child(1), #tabelaLista td:nth-child(1) { width: 20%; text-align: left;}
+#tabelaLista th:nth-child(1), #tabelaLista td:nth-child(1) { width: 30%; text-align: left; }
 #tabelaLista th:nth-child(2), #tabelaLista td:nth-child(2) { width: 20%; text-align: center; }
 #tabelaLista th:nth-child(3), #tabelaLista td:nth-child(3) { width: 20%; text-align: center; }
-#tabelaLista th:nth-child(4), #tabelaLista td:nth-child(4) { width: 20%; text-align: center; }
+#tabelaLista th:nth-child(4), #tabelaLista td:nth-child(4) { width: 30%; text-align: center; }
 
 /* alinhamentos das tabela em deshboard */
 #tabelaDeshboard th:nth-child(1), #tabelaDeshboard td:nth-child(1) { width: 20%; text-align: left;}
@@ -203,10 +208,15 @@ button {
 #tabelaClientes th:nth-child(4), #tabelaClientes td:nth-child(4) { width: 20%; text-align: center; }
 
 /* alinhamento das tabelas em serviços */
-#tabelaServicos th:nth-child(1), #tabelaServicos td:nth-child(1) { width: 20%; text-align: left;}
-#tabelaServicos th:nth-child(2), #tabelaServicos td:nth-child(2) { width: 20%; text-align: center; }
-#tabelaServicos th:nth-child(3), #tabelaServicos td:nth-child(3) { width: 20%; text-align: center; }
-#tabelaServicos th:nth-child(4), #tabelaServicos td:nth-child(4) { width: 20%; text-align: center; }
+#tabelaServicos {
+    table-layout: fixed;
+    width: 100%;
+}
+#tabelaServicos th:nth-child(1), #tabelaServicos td:nth-child(1) { width: 25%; text-align: left; }
+#tabelaServicos th:nth-child(2), #tabelaServicos td:nth-child(2) { width: 25%; text-align: center; }
+#tabelaServicos th:nth-child(3), #tabelaServicos td:nth-child(3) { width: 15%; text-align: center; }
+#tabelaServicos th:nth-child(4), #tabelaServicos td:nth-child(4) { width: 15%; text-align: center; }
+#tabelaServicos th:nth-child(5), #tabelaServicos td:nth-child(5) { width: 20%; text-align: center; }
 
 /* alinhamento tabelas do modal histórico */
 .tabelaHistOrc {
@@ -223,6 +233,21 @@ button {
 .tabelaHistServ th:nth-child(1), .tabelaHistServ td:nth-child(1) { width: 50%; text-align: left; }
 .tabelaHistServ th:nth-child(2), .tabelaHistServ td:nth-child(2) { width: 25%; text-align: center; }
 .tabelaHistServ th:nth-child(3), .tabelaHistServ td:nth-child(3) { width: 25%; text-align: center; }
+
+#tabelaLista td:last-child button,
+#tabelaClientes td:last-child button,
+#tabelaServicos td:last-child button {
+    font-size: 18px;
+    padding: 6px 10px;
+    background: transparent;
+    color: inherit;
+}
+
+#tabelaLista td:last-child button:hover,
+#tabelaClientes td:last-child button:hover,
+#tabelaServicos td:last-child button:hover {
+    background: rgba(0,0,0,0.08);
+}
 
 .menu-link {
     display: flex;
