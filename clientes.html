@@ -78,30 +78,8 @@
 		<script src="darkmode.js"></script>
 
 		<!-- MODAL HISTÓRICO -->
-		<div
-			id="modalHistorico"
-			style="
-				display: none;
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background: rgba(0, 0, 0, 0.5);
-				z-index: 999;
-			"
-		>
-			<div
-				style="
-					background: white;
-					margin: 5% auto;
-					padding: 30px;
-					border-radius: 10px;
-					width: 60%;
-					max-height: 80vh;
-					overflow-y: auto;
-				"
-			>
+		<div id="modalHistorico" class="modal-overlay">
+			<div class="modal-box">
 				<h2 id="tituloHistorico"></h2>
 
 				<h3>Orçamentos</h3>
@@ -110,6 +88,7 @@
 						<tr>
 							<th>Total</th>
 							<th>Status</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody id="historicoOrcamentos"></tbody>
@@ -130,6 +109,27 @@
 				<button onclick="fecharHistorico()" style="margin-top: 20px">
 					Fechar
 				</button>
+			</div>
+		</div>
+		<!-- MODAL ORÇAMENTO COMPLETO -->
+		<div id="modalOrcamento" class="modal-overlay">
+			<div class="modal-box">
+				<h2 id="tituloOrcamento"></h2>
+				<table class="tabelaOrcCompleto">
+					<thead>
+						<tr>
+							<th>Serviço</th>
+							<th>Corte</th>
+							<th>Metros</th>
+							<th>Valor/m</th>
+							<th>P.U</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody id="itensOrcamento"></tbody>
+				</table>
+				<p id="totalOrcamento" style="text-align:right; font-weight:bold; margin-top:10px;"></p>
+				<button onclick="fecharOrcamento()" style="margin-top: 20px">Fechar</button>
 			</div>
 		</div>
 	</body>
