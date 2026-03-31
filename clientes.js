@@ -95,7 +95,8 @@ function verHistorico(index) {
 	let orcamentos = JSON.parse(localStorage.getItem("orcamentos")) || [];
 	let servicos = JSON.parse(localStorage.getItem("Servicos")) || [];
 
-	document.getElementById("tituloHistorico").innerText = "Histórico — " + c.nome;
+	document.getElementById("tituloHistorico").innerText =
+		"Histórico — " + c.nome;
 
 	orcDoCliente = orcamentos.filter(
 		(o) => o.cliente.toLowerCase() === c.nome.toLowerCase(),
@@ -111,7 +112,7 @@ function verHistorico(index) {
 			<tr>
 				<td>${o.totalGeral}</td>
 				<td><span class="status ${o.status}">${o.status.charAt(0).toUpperCase() + o.status.slice(1)}</span></td>
-				<td><button title="Ver Orçamento" onclick="verOrcamento(${i})"><i class="fa-solid fa-eye" style="color:#1f6feb;"></i></button></td>
+				<td><button title="Ver Orçamento" onclick="verOrcamento(${i})"><i class="fa-solid fa-eye" style="color: #ffffff;"></i></button></td>
 			</tr>`,
 					)
 					.join("");
@@ -143,18 +144,17 @@ function fecharHistorico() {
 
 function verOrcamento(i) {
 	let o = orcDoCliente[i];
-	document.getElementById("tituloOrcamento").innerText = "Orçamento — " + o.cliente;
-	document.getElementById("totalOrcamento").innerText = "Total: " + o.totalGeral;
+	document.getElementById("tituloOrcamento").innerText =
+		"Orçamento — " + o.cliente;
+	document.getElementById("totalOrcamento").innerText =
+		"Total: " + o.totalGeral;
 
 	document.getElementById("itensOrcamento").innerHTML = o.itens
 		.map(
 			(item) => `
 		<tr>
 			<td>${item.servico}</td>
-			<td>${item.corte}</td>
 			<td>${item.metros}</td>
-			<td>${item.valorMetro}</td>
-			<td>${item.pu || 0}</td>
 			<td>${item.total}</td>
 		</tr>`,
 		)

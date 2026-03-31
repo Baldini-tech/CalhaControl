@@ -220,7 +220,7 @@ button:hover {
 
 /* alinhamento tabelas do modal histórico */
 .tabelaHistOrc {
-    table-layout: fixed;
+    table-layout: auto;
     width: 100%;
 }
 .tabelaHistOrc th:nth-child(1), .tabelaHistOrc td:nth-child(1) { width: 50%; text-align: left; }
@@ -228,7 +228,7 @@ button:hover {
 .tabelaHistOrc th:nth-child(3), .tabelaHistOrc td:nth-child(3) { width: 15%; text-align: center; }
 
 .tabelaHistServ {
-    table-layout: fixed;
+    table-layout: auto;
     width: 100%;
 }
 .tabelaHistServ th:nth-child(1), .tabelaHistServ td:nth-child(1) { width: 50%; text-align: left; }
