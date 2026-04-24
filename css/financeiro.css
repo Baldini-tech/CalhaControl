@@ -19,14 +19,6 @@ body {
     top: 0;
 }
 
-.sidebar .logo {
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 10px;
-    width: 160px;
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
-}
-
 .sidebar ul {
     list-style: none;
     padding: 0;
@@ -436,7 +428,7 @@ body.dark .main h1 {
 }
 
 body.dark .sidebar {
-    background: radial-gradient(circle, #161b22, #0d1117);
+    background: radial-gradient(circle, #002344, #001222);
 }
 
 body.dark #darkToggle {
