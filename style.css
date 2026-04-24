@@ -108,6 +108,32 @@ body {
     text-align: center;
 }
 
+.card.saldo-pendente {
+    border-left: 4px solid #f0ad4e;
+}
+
+.card.saldo-pendente h3 {
+    color: #f0ad4e;
+}
+
+.card.saldo-positivo {
+    border-left: 4px solid #28a745;
+}
+
+.card.saldo-positivo h3 {
+    color: #28a745;
+}
+
+.card h3 i {
+    margin-right: 8px;
+}
+
+.card p {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
 /* TABELA */
 .tabela {
     margin-top: 30px;
@@ -267,7 +293,7 @@ button:hover {
 
 select {
     background-color: rgba(62, 62, 62, 0.15);
-    height: 30px;
+    height: 40px;
     text-align: center;
     border: none;
     border-radius: 6%;
@@ -388,8 +414,144 @@ body.dark #tabelaServicos td:last-child button {
     background: transparent;
 }
 
-body.dark #tabelaLista td:last-child button:hover,
-body.dark #tabelaClientes td:last-child button:hover,
-body.dark #tabelaServicos td:last-child button:hover {
-    background: rgba(255,255,255,0.08);
+/* BARRA DE PESQUISA DE CLIENTES */
+.cliente-search {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.cliente-search label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.cliente-search input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.cliente-search input:focus {
+    outline: none;
+    border-color: #1f6feb;
+    box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.1);
+}
+
+.sugestoes {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.sugestoes.show {
+    display: block;
+}
+
+.sugestao-item {
+    padding: 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.sugestao-item:hover,
+.sugestao-item.selected {
+    background-color: #f8f9fa;
+}
+
+.sugestao-item:last-child {
+    border-bottom: none;
+}
+
+.sugestao-nome {
+    font-weight: bold;
+    color: #333;
+}
+
+.sugestao-info {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+}
+
+.novo-cliente {
+    border-top: 1px solid #e0e0e0;
+    background-color: #f8f9fa;
+}
+
+.novo-cliente:hover {
+    background-color: #e9ecef;
+}
+
+.novo-cliente .sugestao-nome {
+    color: #1f6feb;
+    font-weight: normal;
+}
+
+.novo-cliente .sugestao-nome i {
+    margin-right: 8px;
+}
+
+/* DARK MODE - PESQUISA CLIENTES */
+body.dark .cliente-search label {
+    color: #e6edf3;
+}
+
+body.dark .cliente-search input {
+    background: #21262d;
+    color: #e6edf3;
+    border-color: #30363d;
+}
+
+body.dark .cliente-search input:focus {
+    border-color: #1f6feb;
+}
+
+body.dark .sugestoes {
+    background: #161b22;
+    border-color: #30363d;
+}
+
+body.dark .sugestao-item {
+    border-bottom-color: #30363d;
+}
+
+body.dark .sugestao-item:hover,
+body.dark .sugestao-item.selected {
+    background-color: #21262d;
+}
+
+body.dark .sugestao-nome {
+    color: #e6edf3;
+}
+
+body.dark .sugestao-info {
+    color: #8b949e;
+}
+
+body.dark .novo-cliente {
+    border-top-color: #30363d;
+    background-color: #21262d;
+}
+
+body.dark .novo-cliente:hover {
+    background-color: #30363d;
+}
+
+body.dark .novo-cliente .sugestao-nome {
+    color: #58a6ff;
 }

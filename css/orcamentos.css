@@ -1,0 +1,122 @@
+/* CSS ORÇAMENTOS - orcamentos.html */
+
+/* STATUS */
+.status {
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+}
+
+.pendente {
+    background: #f0ad4e;
+}
+
+.aprovado {
+    background: #28a745;
+}
+
+.recusado {
+    background: #dc3545;
+}
+
+.andamento {
+    background: #17a2b8;
+}
+
+.finalizado {
+    background: #28a745;
+}
+
+/* TABELA ORÇAMENTOS */
+#tabelaLista {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#tabelaLista th:nth-child(1), 
+#tabelaLista td:nth-child(1) { 
+    width: 30%; 
+    text-align: left; 
+}
+
+#tabelaLista th:nth-child(2), 
+#tabelaLista td:nth-child(2) { 
+    width: 20%; 
+    text-align: center; 
+}
+
+#tabelaLista th:nth-child(3), 
+#tabelaLista td:nth-child(3) { 
+    width: 20%; 
+    text-align: center; 
+}
+
+#tabelaLista th:nth-child(4), 
+#tabelaLista td:nth-child(4) { 
+    width: 30%; 
+    text-align: center; 
+}
+
+/* TABELA ORÇAMENTO COMPLETO */
+.tabelaOrcCompleto {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.tabelaOrcCompleto th:nth-child(1), 
+.tabelaOrcCompleto td:nth-child(1) { 
+    width: 30%; 
+    text-align: left; 
+}
+
+.tabelaOrcCompleto th:nth-child(2), 
+.tabelaOrcCompleto td:nth-child(2) { 
+    width: 10%; 
+    text-align: center; 
+}
+
+.tabelaOrcCompleto th:nth-child(3), 
+.tabelaOrcCompleto td:nth-child(3) { 
+    width: 12%; 
+    text-align: center; 
+}
+
+.tabelaOrcCompleto th:nth-child(4), 
+.tabelaOrcCompleto td:nth-child(4) { 
+    width: 14%; 
+    text-align: center; 
+}
+
+.tabelaOrcCompleto th:nth-child(5), 
+.tabelaOrcCompleto td:nth-child(5) { 
+    width: 10%; 
+    text-align: center; 
+}
+
+.tabelaOrcCompleto th:nth-child(6), 
+.tabelaOrcCompleto td:nth-child(6) { 
+    width: 14%; 
+    text-align: right; 
+}
+
+/* BOTÕES DE AÇÃO */
+#tabelaLista td:last-child button {
+    font-size: 18px;
+    padding: 6px 10px;
+    background: transparent;
+    color: inherit;
+}
+
+#tabelaLista td:last-child button:hover {
+    background: rgba(0,0,0,0.08);
+}
+
+/* DARK MODE - ORÇAMENTOS */
+body.dark #tabelaLista td:last-child button {
+    background: transparent;
+}
+
+body.dark #tabelaLista td:last-child button:hover {
+    background: rgba(255,255,255,0.08);
+}

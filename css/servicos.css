@@ -1,0 +1,58 @@
+/* CSS SERVIÇOS - servicos.html */
+
+/* TABELA SERVIÇOS */
+#tabelaServicos {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#tabelaServicos th:nth-child(1), 
+#tabelaServicos td:nth-child(1) { 
+    width: 25%; 
+    text-align: left; 
+}
+
+#tabelaServicos th:nth-child(2), 
+#tabelaServicos td:nth-child(2) { 
+    width: 25%; 
+    text-align: center; 
+}
+
+#tabelaServicos th:nth-child(3), 
+#tabelaServicos td:nth-child(3) { 
+    width: 15%; 
+    text-align: center; 
+}
+
+#tabelaServicos th:nth-child(4), 
+#tabelaServicos td:nth-child(4) { 
+    width: 15%; 
+    text-align: center; 
+}
+
+#tabelaServicos th:nth-child(5), 
+#tabelaServicos td:nth-child(5) { 
+    width: 20%; 
+    text-align: center; 
+}
+
+/* BOTÕES DE AÇÃO */
+#tabelaServicos td:last-child button {
+    font-size: 18px;
+    padding: 6px 10px;
+    background: transparent;
+    color: inherit;
+}
+
+#tabelaServicos td:last-child button:hover {
+    background: rgba(0,0,0,0.08);
+}
+
+/* DARK MODE - SERVIÇOS */
+body.dark #tabelaServicos td:last-child button {
+    background: transparent;
+}
+
+body.dark #tabelaServicos td:last-child button:hover {
+    background: rgba(255,255,255,0.08);
+}

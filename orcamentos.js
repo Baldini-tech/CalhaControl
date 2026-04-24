@@ -8,13 +8,139 @@ function salvar() {
 
 function carregarClientes() {
 	let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
-	let select = document.getElementById("cliente");
-	let valorAtual = select.value;
-	select.innerHTML = "<option value=''>Selecione o Cliente</option>";
-	clientes.forEach((c) => {
-		select.innerHTML += `<option value="${c.nome}">${c.nome}</option>`;
+	let input = document.getElementById("cliente");
+	let sugestoes = document.getElementById("clienteSugestoes");
+	
+	if (!input || !sugestoes) return;
+	
+	// Configurar eventos de pesquisa
+	input.addEventListener('input', function() {
+		const termo = this.value.toLowerCase().trim();
+		
+		if (termo.length === 0) {
+			sugestoes.classList.remove('show');
+			return;
+		}
+		
+		const clientesFiltrados = clientes.filter(cliente => 
+			cliente.nome.toLowerCase().includes(termo) ||
+			cliente.telefone.includes(termo) ||
+			cliente.email.toLowerCase().includes(termo)
+		);
+		
+		mostrarSugestoes(clientesFiltrados);
 	});
-	if (valorAtual) select.value = valorAtual;
+	
+	// Fechar sugestões ao clicar fora
+	document.addEventListener('click', function(e) {
+		if (!input.contains(e.target) && !sugestoes.contains(e.target)) {
+			sugestoes.classList.remove('show');
+		}
+	});
+	
+	// Navegação por teclado
+	input.addEventListener('keydown', function(e) {
+		const items = sugestoes.querySelectorAll('.sugestao-item');
+		let selected = sugestoes.querySelector('.sugestao-item.selected');
+		
+		if (e.key === 'ArrowDown') {
+			e.preventDefault();
+			if (!selected) {
+				items[0]?.classList.add('selected');
+			} else {
+				selected.classList.remove('selected');
+				const next = selected.nextElementSibling;
+				if (next) next.classList.add('selected');
+				else items[0]?.classList.add('selected');
+			}
+		} else if (e.key === 'ArrowUp') {
+			e.preventDefault();
+			if (!selected) {
+				items[items.length - 1]?.classList.add('selected');
+			} else {
+				selected.classList.remove('selected');
+				const prev = selected.previousElementSibling;
+				if (prev) prev.classList.add('selected');
+				else items[items.length - 1]?.classList.add('selected');
+			}
+		} else if (e.key === 'Enter') {
+			e.preventDefault();
+			if (selected) {
+				selecionarCliente(selected.dataset.nome);
+			}
+		} else if (e.key === 'Escape') {
+			sugestoes.classList.remove('show');
+		}
+	});
+}
+
+function mostrarSugestoes(clientes) {
+	const sugestoes = document.getElementById("clienteSugestoes");
+	const termo = document.getElementById("cliente").value.trim();
+	
+	let html = '';
+	
+	if (clientes.length === 0 && termo.length > 0) {
+		html = `
+			<div class="sugestao-item novo-cliente" onclick="adicionarNovoCliente('${termo}')">
+				<div class="sugestao-nome"><i class="fa-solid fa-plus"></i> Adicionar "${termo}" como novo cliente</div>
+				<div class="sugestao-info">Clique para criar um novo cliente</div>
+			</div>
+		`;
+	} else if (clientes.length > 0) {
+		html = clientes.map(cliente => `
+			<div class="sugestao-item" data-nome="${cliente.nome}" onclick="selecionarCliente('${cliente.nome}')">
+				<div class="sugestao-nome">${cliente.nome}</div>
+				<div class="sugestao-info">${cliente.telefone} • ${cliente.email}</div>
+			</div>
+		`).join('');
+		
+		// Adicionar opção de novo cliente se o termo não for exato
+		const clienteExato = clientes.find(c => c.nome.toLowerCase() === termo.toLowerCase());
+		if (!clienteExato && termo.length > 0) {
+			html += `
+				<div class="sugestao-item novo-cliente" onclick="adicionarNovoCliente('${termo}')">
+					<div class="sugestao-nome"><i class="fa-solid fa-plus"></i> Adicionar "${termo}" como novo cliente</div>
+					<div class="sugestao-info">Clique para criar um novo cliente</div>
+				</div>
+			`;
+		}
+	}
+	
+	sugestoes.innerHTML = html;
+	sugestoes.classList.add('show');
+}
+
+function adicionarNovoCliente(nome) {
+	const telefone = prompt(`Digite o telefone para ${nome}:`);
+	if (!telefone) return;
+	
+	const email = prompt(`Digite o email para ${nome}:`) || '';
+	
+	// Adicionar cliente ao localStorage
+	let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
+	const novoCliente = {
+		nome: nome,
+		telefone: telefone,
+		email: email,
+		id: Date.now()
+	};
+	
+	clientes.push(novoCliente);
+	localStorage.setItem("Clientes", JSON.stringify(clientes));
+	
+	// Selecionar o novo cliente
+	selecionarCliente(nome);
+	
+	alert(`Cliente "${nome}" adicionado com sucesso!`);
+}
+
+function selecionarCliente(nome) {
+	const input = document.getElementById("cliente");
+	const sugestoes = document.getElementById("clienteSugestoes");
+	
+	input.value = nome;
+	sugestoes.classList.remove('show');
 }
 
 // 🔥 ADICIONAR LINHA
@@ -109,7 +235,14 @@ function salvarOrcamento() {
 
 	let totalGeral = document.getElementById("totalGeral").innerText;
 
-	let novo = { cliente, status, itens, totalGeral };
+	let novo = { 
+		id: editIndex !== null ? orcamentos[editIndex].id : Date.now(),
+		cliente, 
+		status, 
+		itens, 
+		totalGeral,
+		total: parseFloat(totalGeral.replace('R$', '').replace(',', '.')) || 0
+	};
 
 	if (editIndex !== null) {
 		orcamentos[editIndex] = novo;
@@ -128,6 +261,13 @@ function limparTela() {
 	document.getElementById("cliente").value = "";
 	document.getElementById("itens").innerHTML = "";
 	document.getElementById("totalGeral").innerText = "R$ 0.00";
+	document.getElementById("status").value = "pendente";
+	
+	// Fechar sugestões se estiverem abertas
+	const sugestoes = document.getElementById("clienteSugestoes");
+	if (sugestoes) {
+		sugestoes.classList.remove('show');
+	}
 }
 
 // 🔥 LISTAR COM AÇÕES
@@ -169,6 +309,7 @@ function editar(index) {
 
 	editIndex = index;
 
+	// Definir cliente na barra de pesquisa
 	document.getElementById("cliente").value = o.cliente;
 	document.getElementById("status").value = o.status;
 	document.getElementById("itens").innerHTML = "";

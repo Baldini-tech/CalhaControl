@@ -40,21 +40,35 @@
 						><i class="fa-solid fa-screwdriver-wrench"></i> Serviços</a
 					>
 				</li>
+				<li>
+					<a href="financeiro.html"
+						><i class="fa-solid fa-dollar-sign"></i>Financeiro</a
+					>
+				</li>
 			</ul>
 		</div>
 
 		<!-- MAIN -->
 		<div class="main">
 			<h1>Orçamentos</h1>
-			<button id="darkToggle" title="Alternar modo escuro"><i class="fa-solid fa-moon"></i></button>
+			<button id="darkToggle" title="Alternar modo escuro">
+				<i class="fa-solid fa-moon"></i>
+			</button>
 
 			<!-- FORM -->
 			<div class="card">
 				<h3>Novo Orçamento</h3>
 
-				<select id="cliente">
-					<option value="">Selecione o Cliente</option>
-				</select>
+				<div class="cliente-search">
+					<label for="cliente">Cliente:</label>
+					<input
+						type="text"
+						id="cliente"
+						placeholder="Digite o nome do cliente..."
+						autocomplete="off"
+					/>
+					<div id="clienteSugestoes" class="sugestoes"></div>
+				</div>
 
 				<table id="tabelaItens">
 					<thead>

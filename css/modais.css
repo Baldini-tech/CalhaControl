@@ -1,0 +1,83 @@
+/* CSS MODAIS E HISTÓRICO */
+
+/* MODAL HISTÓRICO */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.modal-box {
+    background: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 60%;
+    max-height: 80vh;
+    overflow-y: auto;
+    color: #000;
+}
+
+/* TABELAS DO HISTÓRICO */
+.tabelaHistOrc {
+    table-layout: auto;
+    width: 100%;
+}
+
+.tabelaHistOrc th:nth-child(1), 
+.tabelaHistOrc td:nth-child(1) { 
+    width: 50%; 
+    text-align: left; 
+}
+
+.tabelaHistOrc th:nth-child(2), 
+.tabelaHistOrc td:nth-child(2) { 
+    width: 35%; 
+    text-align: center; 
+}
+
+.tabelaHistOrc th:nth-child(3), 
+.tabelaHistOrc td:nth-child(3) { 
+    width: 15%; 
+    text-align: center; 
+}
+
+.tabelaHistServ {
+    table-layout: auto;
+    width: 100%;
+}
+
+.tabelaHistServ th:nth-child(1), 
+.tabelaHistServ td:nth-child(1) { 
+    width: 50%; 
+    text-align: left; 
+}
+
+.tabelaHistServ th:nth-child(2), 
+.tabelaHistServ td:nth-child(2) { 
+    width: 25%; 
+    text-align: center; 
+}
+
+.tabelaHistServ th:nth-child(3), 
+.tabelaHistServ td:nth-child(3) { 
+    width: 25%; 
+    text-align: center; 
+}
+
+/* DARK MODE - MODAIS */
+body.dark .modal-box {
+    background: #161b22;
+    color: #e6edf3;
+}
+
+body.dark .modal-box th,
+body.dark .modal-box td {
+    border-bottom-color: #30363d;
+    color: #e6edf3;
+}

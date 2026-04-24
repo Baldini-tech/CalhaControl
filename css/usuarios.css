@@ -1,0 +1,52 @@
+/* CSS USUÁRIOS - usuario.html */
+
+/* TABELA USUÁRIOS */
+#tabelaUsuarios {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#tabelaUsuarios th:nth-child(1), 
+#tabelaUsuarios td:nth-child(1) { 
+    width: 25%; 
+    text-align: left; 
+}
+
+#tabelaUsuarios th:nth-child(2), 
+#tabelaUsuarios td:nth-child(2) { 
+    width: 25%; 
+    text-align: center; 
+}
+
+#tabelaUsuarios th:nth-child(3), 
+#tabelaUsuarios td:nth-child(3) { 
+    width: 25%; 
+    text-align: center; 
+}
+
+#tabelaUsuarios th:nth-child(4), 
+#tabelaUsuarios td:nth-child(4) { 
+    width: 25%; 
+    text-align: center; 
+}
+
+/* BOTÕES DE AÇÃO */
+#tabelaUsuarios td:last-child button {
+    font-size: 18px;
+    padding: 6px 10px;
+    background: transparent;
+    color: inherit;
+}
+
+#tabelaUsuarios td:last-child button:hover {
+    background: rgba(0,0,0,0.08);
+}
+
+/* DARK MODE - USUÁRIOS */
+body.dark #tabelaUsuarios td:last-child button {
+    background: transparent;
+}
+
+body.dark #tabelaUsuarios td:last-child button:hover {
+    background: rgba(255,255,255,0.08);
+}

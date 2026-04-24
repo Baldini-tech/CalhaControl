@@ -1,0 +1,52 @@
+/* CSS CLIENTES - clientes.html */
+
+/* TABELA CLIENTES */
+#tabelaClientes {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#tabelaClientes th:nth-child(1), 
+#tabelaClientes td:nth-child(1) { 
+    width: 20%; 
+    text-align: left;
+}
+
+#tabelaClientes th:nth-child(2), 
+#tabelaClientes td:nth-child(2) { 
+    width: 20%; 
+    text-align: center; 
+}
+
+#tabelaClientes th:nth-child(3), 
+#tabelaClientes td:nth-child(3) { 
+    width: 20%; 
+    text-align: center; 
+}
+
+#tabelaClientes th:nth-child(4), 
+#tabelaClientes td:nth-child(4) { 
+    width: 20%; 
+    text-align: center; 
+}
+
+/* BOTÕES DE AÇÃO */
+#tabelaClientes td:last-child button {
+    font-size: 18px;
+    padding: 6px 10px;
+    background: transparent;
+    color: inherit;
+}
+
+#tabelaClientes td:last-child button:hover {
+    background: rgba(0,0,0,0.08);
+}
+
+/* DARK MODE - CLIENTES */
+body.dark #tabelaClientes td:last-child button {
+    background: transparent;
+}
+
+body.dark #tabelaClientes td:last-child button:hover {
+    background: rgba(255,255,255,0.08);
+}

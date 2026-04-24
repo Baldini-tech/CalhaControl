@@ -1,0 +1,537 @@
+/* CSS FINANCEIRO - financeiro.html */
+
+/* LAYOUT BÁSICO */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 200px;
+    background: radial-gradient(circle, #002344, #001222);
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar .logo {
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 160px;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20%;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+.sidebar a.active {
+    background: white;
+    color: #1f6feb;
+    font-weight: bold;
+}
+
+.sidebar .footer {
+    padding: 26px;
+    text-align: center;
+    opacity: 0.5;
+    color: rgb(255, 255, 255);
+    position: fixed;
+    bottom: 0;
+    font-size: 15px;
+}
+
+.main {
+    flex: 1;
+    margin-left: 240px;
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+.main h1 {
+    margin: 0 0 30px 0;
+    color: #333;
+}
+
+/* BOTÃO DARK MODE */
+#darkToggle {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 1000;
+    background: #1f6feb;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    padding: 0;
+}
+
+#darkToggle:hover {
+    background: #0f2a44;
+}
+
+/* CARDS FINANCEIROS */
+.cards-financeiro {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* CARDS DE ORÇAMENTOS */
+.cards-orcamentos {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card-receita,
+.card-despesa,
+.card-saldo,
+.card-pendente,
+.card-positivo {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.card-pendente {
+    border-left: 5px solid #f0ad4e;
+}
+
+.card-pendente h3 {
+    color: #f0ad4e;
+}
+
+.card-pendente p {
+    color: #f0ad4e;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.card-pendente small {
+    color: #666;
+    font-size: 12px;
+}
+
+.card-positivo {
+    border-left: 5px solid #28a745;
+}
+
+.card-positivo h3 {
+    color: #28a745;
+}
+
+.card-positivo p {
+    color: #28a745;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.card-positivo small {
+    color: #666;
+    font-size: 12px;
+}
+
+.card-receita {
+    border-left: 5px solid #28a745;
+}
+
+.card-receita h3 {
+    color: #28a745;
+}
+
+.card-receita p {
+    color: #28a745;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.card-despesa {
+    border-left: 5px solid #dc3545;
+}
+
+.card-despesa h3 {
+    color: #dc3545;
+}
+
+.card-despesa p {
+    color: #dc3545;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.card-saldo {
+    border-left: 5px solid #1f6feb;
+}
+
+.card-saldo h3 {
+    color: #1f6feb;
+}
+
+.card-saldo p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+/* FORMULÁRIO */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+.card input,
+.card select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.card button {
+    padding: 10px 20px;
+    background: #1f6feb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.card button:hover {
+    background: #0f2a44;
+}
+
+/* TABELA */
+.tabela {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.tabela h2 {
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background: #f8f9fa;
+    font-weight: bold;
+}
+
+/* GRÁFICOS FINANCEIROS */
+.graficos-financeiro {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.grafico-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.grafico-card h3 {
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: #333;
+}
+
+.grafico-card canvas {
+    max-height: 300px;
+}
+
+/* FILTROS */
+.filtros {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filtros h3 {
+    margin: 0;
+    margin-right: 15px;
+}
+
+.filtros select,
+.filtros input {
+    margin: 0;
+    width: auto;
+    min-width: 150px;
+}
+
+/* TABELA FINANCEIRO */
+#tabelaFinanceiro {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#tabelaFinanceiro th:nth-child(1), 
+#tabelaFinanceiro td:nth-child(1) { 
+    width: 12%; 
+    text-align: center; 
+}
+
+#tabelaFinanceiro th:nth-child(2), 
+#tabelaFinanceiro td:nth-child(2) { 
+    width: 15%; 
+    text-align: center; 
+}
+
+#tabelaFinanceiro th:nth-child(3), 
+#tabelaFinanceiro td:nth-child(3) { 
+    width: 30%; 
+    text-align: left; 
+}
+
+#tabelaFinanceiro th:nth-child(4), 
+#tabelaFinanceiro td:nth-child(4) { 
+    width: 15%; 
+    text-align: center; 
+}
+
+#tabelaFinanceiro th:nth-child(5), 
+#tabelaFinanceiro td:nth-child(5) { 
+    width: 15%; 
+    text-align: right; 
+}
+
+#tabelaFinanceiro th:nth-child(6), 
+#tabelaFinanceiro td:nth-child(6) { 
+    width: 13%; 
+    text-align: center; 
+}
+
+/* TIPOS DE MOVIMENTAÇÃO */
+.tipo {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tipo.receita {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+.tipo.despesa {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+/* VALORES COLORIDOS */
+.receita {
+    color: #28a745 !important;
+    font-weight: bold;
+}
+
+.despesa {
+    color: #dc3545 !important;
+    font-weight: bold;
+}
+
+/* BOTÕES DE AÇÃO */
+#tabelaFinanceiro td:last-child button {
+    font-size: 18px;
+    padding: 6px 10px;
+    background: transparent;
+    color: inherit;
+    margin: 0 2px;
+}
+
+#tabelaFinanceiro td:last-child button:hover {
+    background: rgba(0,0,0,0.08);
+}
+
+/* DARK MODE - FINANCEIRO */
+body.dark {
+    background: #0d1117;
+    color: #e6edf3;
+}
+
+body.dark .main {
+    background: #0d1117;
+}
+
+body.dark .main h1 {
+    color: #e6edf3;
+}
+
+body.dark .sidebar {
+    background: radial-gradient(circle, #161b22, #0d1117);
+}
+
+body.dark #darkToggle {
+    background: #1f6feb;
+}
+
+body.dark #darkToggle:hover {
+    background: #388bfd;
+}
+
+body.dark .card-receita,
+body.dark .card-despesa,
+body.dark .card-saldo,
+body.dark .card-pendente,
+body.dark .card-positivo,
+body.dark .card,
+body.dark .tabela,
+body.dark .filtros,
+body.dark .grafico-card {
+    background: #161b22;
+    color: #e6edf3;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+body.dark .card h3,
+body.dark .tabela h2 {
+    color: #e6edf3;
+}
+
+body.dark .card input,
+body.dark .card select,
+body.dark .filtros input,
+body.dark .filtros select {
+    background: #21262d;
+    color: #e6edf3;
+    border-color: #30363d;
+}
+
+body.dark th {
+    background: #21262d;
+    color: #e6edf3;
+}
+
+body.dark th,
+body.dark td {
+    border-bottom-color: #30363d;
+    color: #e6edf3;
+}
+
+body.dark .card button {
+    background: #1f6feb;
+}
+
+body.dark .card button:hover {
+    background: #388bfd;
+}
+
+body.dark .card-pendente small,
+body.dark .card-positivo small {
+    color: #8b949e;
+}
+
+body.dark .filtros h3,
+body.dark .grafico-card h3 {
+    color: #e6edf3;
+}
+
+body.dark #tabelaFinanceiro td:last-child button {
+    background: transparent;
+}
+
+body.dark #tabelaFinanceiro td:last-child button:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .cards-financeiro,
+    .cards-orcamentos,
+    .graficos-financeiro {
+        flex-direction: column;
+    }
+    
+    .filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filtros select,
+    .filtros input {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .grafico-card canvas {
+        max-height: 250px;
+    }
+}
