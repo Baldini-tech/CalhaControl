@@ -10,66 +10,67 @@ function carregarClientes() {
 	let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
 	let input = document.getElementById("cliente");
 	let sugestoes = document.getElementById("clienteSugestoes");
-	
+
 	if (!input || !sugestoes) return;
-	
+
 	// Configurar eventos de pesquisa
-	input.addEventListener('input', function() {
+	input.addEventListener("input", function () {
 		const termo = this.value.toLowerCase().trim();
-		
+
 		if (termo.length === 0) {
-			sugestoes.classList.remove('show');
+			sugestoes.classList.remove("show");
 			return;
 		}
-		
-		const clientesFiltrados = clientes.filter(cliente => 
-			cliente.nome.toLowerCase().includes(termo) ||
-			cliente.telefone.includes(termo) ||
-			cliente.email.toLowerCase().includes(termo)
+
+		const clientesFiltrados = clientes.filter(
+			(cliente) =>
+				cliente.nome.toLowerCase().includes(termo) ||
+				cliente.telefone.includes(termo) ||
+				cliente.email.toLowerCase().includes(termo),
 		);
-		
+
 		mostrarSugestoes(clientesFiltrados);
 	});
-	
+
 	// Fechar sugestões ao clicar fora
-	document.addEventListener('click', function(e) {
+	document.addEventListener("click", function (e) {
 		if (!input.contains(e.target) && !sugestoes.contains(e.target)) {
-			sugestoes.classList.remove('show');
+			sugestoes.classList.remove("show");
 		}
 	});
-	
+
 	// Navegação por teclado
-	input.addEventListener('keydown', function(e) {
-		const items = sugestoes.querySelectorAll('.sugestao-item');
-		let selected = sugestoes.querySelector('.sugestao-item.selected');
-		
-		if (e.key === 'ArrowDown') {
+	input.addEventListener("keydown", function (e) {
+		const items = sugestoes.querySelectorAll(".sugestao-item");
+		let selected = sugestoes.querySelector(".sugestao-item.selected");
+
+		if (e.key === "ArrowDown") {
 			e.preventDefault();
 			if (!selected) {
-				items[0]?.classList.add('selected');
+				items[0]?.classList.add("selected");
 			} else {
-				selected.classList.remove('selected');
+				selected.classList.remove("selected");
 				const next = selected.nextElementSibling;
-				if (next) next.classList.add('selected');
-				else items[0]?.classList.add('selected');
+				if (next) next.classList.add("selected");
+				else items[0]?.classList.add("selected");
 			}
-		} else if (e.key === 'ArrowUp') {
+		} else if (e.key === "ArrowUp") {
 			e.preventDefault();
 			if (!selected) {
-				items[items.length - 1]?.classList.add('selected');
+				items[items.length - 1]?.classList.add("selected");
 			} else {
-				selected.classList.remove('selected');
+				selected.classList.remove("selected");
 				const prev = selected.previousElementSibling;
-				if (prev) prev.classList.add('selected');
-				else items[items.length - 1]?.classList.add('selected');
+				if (prev) prev.classList.add("selected");
+				else items[items.length - 1]?.classList.add("selected");
 			}
-		} else if (e.key === 'Enter') {
+		} else if (e.key === "Enter") {
 			e.preventDefault();
 			if (selected) {
 				selecionarCliente(selected.dataset.nome);
 			}
-		} else if (e.key === 'Escape') {
-			sugestoes.classList.remove('show');
+		} else if (e.key === "Escape") {
+			sugestoes.classList.remove("show");
 		}
 	});
 }
@@ -77,9 +78,9 @@ function carregarClientes() {
 function mostrarSugestoes(clientes) {
 	const sugestoes = document.getElementById("clienteSugestoes");
 	const termo = document.getElementById("cliente").value.trim();
-	
-	let html = '';
-	
+
+	let html = "";
+
 	if (clientes.length === 0 && termo.length > 0) {
 		html = `
 			<div class="sugestao-item novo-cliente" onclick="adicionarNovoCliente('${termo}')">
@@ -88,15 +89,21 @@ function mostrarSugestoes(clientes) {
 			</div>
 		`;
 	} else if (clientes.length > 0) {
-		html = clientes.map(cliente => `
+		html = clientes
+			.map(
+				(cliente) => `
 			<div class="sugestao-item" data-nome="${cliente.nome}" onclick="selecionarCliente('${cliente.nome}')">
 				<div class="sugestao-nome">${cliente.nome}</div>
 				<div class="sugestao-info">${cliente.telefone} • ${cliente.email}</div>
 			</div>
-		`).join('');
-		
+		`,
+			)
+			.join("");
+
 		// Adicionar opção de novo cliente se o termo não for exato
-		const clienteExato = clientes.find(c => c.nome.toLowerCase() === termo.toLowerCase());
+		const clienteExato = clientes.find(
+			(c) => c.nome.toLowerCase() === termo.toLowerCase(),
+		);
 		if (!clienteExato && termo.length > 0) {
 			html += `
 				<div class="sugestao-item novo-cliente" onclick="adicionarNovoCliente('${termo}')">
@@ -106,41 +113,41 @@ function mostrarSugestoes(clientes) {
 			`;
 		}
 	}
-	
+
 	sugestoes.innerHTML = html;
-	sugestoes.classList.add('show');
+	sugestoes.classList.add("show");
 }
 
 function adicionarNovoCliente(nome) {
 	const telefone = prompt(`Digite o telefone para ${nome}:`);
 	if (!telefone) return;
-	
-	const email = prompt(`Digite o email para ${nome}:`) || '';
-	
+
+	const email = prompt(`Digite o email para ${nome}:`) || "";
+
 	// Adicionar cliente ao localStorage
 	let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
 	const novoCliente = {
 		nome: nome,
 		telefone: telefone,
 		email: email,
-		id: Date.now()
+		id: Date.now(),
 	};
-	
+
 	clientes.push(novoCliente);
 	localStorage.setItem("Clientes", JSON.stringify(clientes));
-	
+
 	// Selecionar o novo cliente
 	selecionarCliente(nome);
-	
+
 	alert(`Cliente "${nome}" adicionado com sucesso!`);
 }
 
 function selecionarCliente(nome) {
 	const input = document.getElementById("cliente");
 	const sugestoes = document.getElementById("clienteSugestoes");
-	
+
 	input.value = nome;
-	sugestoes.classList.remove('show');
+	sugestoes.classList.remove("show");
 }
 
 // 🔥 ADICIONAR LINHA
@@ -235,13 +242,13 @@ function salvarOrcamento() {
 
 	let totalGeral = document.getElementById("totalGeral").innerText;
 
-	let novo = { 
+	let novo = {
 		id: editIndex !== null ? orcamentos[editIndex].id : Date.now(),
-		cliente, 
-		status, 
-		itens, 
+		cliente,
+		status,
+		itens,
 		totalGeral,
-		total: parseFloat(totalGeral.replace('R$', '').replace(',', '.')) || 0
+		total: parseFloat(totalGeral.replace("R$", "").replace(",", ".")) || 0,
 	};
 
 	if (editIndex !== null) {
@@ -262,11 +269,11 @@ function limparTela() {
 	document.getElementById("itens").innerHTML = "";
 	document.getElementById("totalGeral").innerText = "R$ 0.00";
 	document.getElementById("status").value = "pendente";
-	
+
 	// Fechar sugestões se estiverem abertas
 	const sugestoes = document.getElementById("clienteSugestoes");
 	if (sugestoes) {
-		sugestoes.classList.remove('show');
+		sugestoes.classList.remove("show");
 	}
 }
 
@@ -330,62 +337,181 @@ function editar(index) {
 	document.getElementById("totalGeral").innerText = o.totalGeral;
 }
 
-// 🔥 PDF PROFISSIONAL
+// 🔥 PDF PROFISSIONAL ESTILIZADO
 function gerarPDF(index) {
 	const { jsPDF } = window.jspdf;
 	let doc = new jsPDF();
 
 	let o = orcamentos[index];
+	let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
+	let clienteInfo = clientes.find((c) => c.nome === o.cliente) || {
+		nome: o.cliente,
+		telefone: "",
+		email: "",
+	};
 
-	let y = 10;
-	doc.setFontSize(16);
-	doc.text("CalhaControl - Orçamento", 10, y);
+	// Cores
+	const azulPrimario = [31, 111, 235];
+	const azulSecundario = [0, 35, 68];
+	const cinzaTexto = [64, 64, 64];
+	const cinzaClaro = [240, 240, 240];
 
-	y += 10;
+	// CABEÇALHO DA EMPRESA
+	doc.setFillColor(...azulPrimario);
+	doc.rect(0, 0, 210, 35, "F");
+
+	// Logo/Nome da empresa
+	doc.setTextColor(255, 255, 255);
+	doc.setFontSize(24);
+	doc.setFont(undefined, "bold");
+	doc.text("CalhaControl", 15, 20);
+
+	doc.setFontSize(10);
+	doc.setFont(undefined, "normal");
+	doc.text("Soluções em Calhas e Coberturas", 15, 28);
+
+	// Informações da empresa (lado direito)
+	doc.setFontSize(9);
+	doc.text("Tel: (11) 99999-9999", 140, 15);
+	doc.text("Email: contato@calhacontrol.com", 140, 20);
+	doc.text("Site: www.calhacontrol.com", 140, 25);
+	doc.text("CNPJ: 00.000.000/0001-00", 140, 30);
+
+	// TÍTULO DO ORÇAMENTO
+	doc.setTextColor(...azulSecundario);
+	doc.setFontSize(18);
+	doc.setFont(undefined, "bold");
+	doc.text("ORÇAMENTO", 15, 50);
+
+	// Número e data do orçamento
+	doc.setFontSize(10);
+	doc.setFont(undefined, "normal");
+	const dataAtual = new Date().toLocaleDateString("pt-BR");
+	const numeroOrcamento = `#${String(o.id || Date.now()).slice(-6)}`;
+
+	doc.text(`Número: ${numeroOrcamento}`, 140, 45);
+	doc.text(`Data: ${dataAtual}`, 140, 50);
+	doc.text(`Status: ${o.status.toUpperCase()}`, 140, 55);
+
+	// INFORMAÇÕES DO CLIENTE
+	let y = 70;
+	doc.setFillColor(...cinzaClaro);
+	doc.rect(15, y - 5, 180, 25, "F");
+
+	doc.setTextColor(...azulSecundario);
 	doc.setFontSize(12);
-	doc.text("Cliente: " + o.cliente, 10, y);
+	doc.setFont(undefined, "bold");
+	doc.text("DADOS DO CLIENTE", 20, y + 5);
+
+	doc.setTextColor(...cinzaTexto);
+	doc.setFontSize(10);
+	doc.setFont(undefined, "normal");
+	doc.text(`Nome: ${clienteInfo.nome}`, 20, y + 12);
+	doc.text(`Telefone: ${clienteInfo.telefone}`, 20, y + 18);
+	doc.text(`Email: ${clienteInfo.email}`, 110, y + 12);
+
+	// TABELA DE ITENS
+	y += 35;
+	doc.setTextColor(...azulSecundario);
+	doc.setFontSize(12);
+	doc.setFont(undefined, "bold");
+	doc.text("ITENS DO ORÇAMENTO", 15, y);
 
 	y += 10;
 
-	o.itens.forEach((item) => {
-		doc.text(`${item.servico} - ${item.metros}m - ${item.total}`, 10, y);
+	// Cabeçalho da tabela
+	doc.setFillColor(...azulPrimario);
+	doc.rect(15, y, 180, 8, "F");
+
+	doc.setTextColor(255, 255, 255);
+	doc.setFontSize(9);
+	doc.setFont(undefined, "bold");
+	doc.text("SERVIÇO", 20, y + 5);
+	doc.text("QTD", 85, y + 5);
+	doc.text("METROS", 105, y + 5);
+	doc.text("VALOR/M", 130, y + 5);
+	doc.text("P.U.", 155, y + 5);
+	doc.text("TOTAL", 175, y + 5);
+
+	y += 8;
+
+	// Itens da tabela
+	doc.setTextColor(...cinzaTexto);
+	doc.setFont(undefined, "normal");
+
+	let subtotal = 0;
+	o.itens.forEach((item, index) => {
+		// Linha alternada
+		if (index % 2 === 0) {
+			doc.setFillColor(250, 250, 250);
+			doc.rect(15, y, 180, 8, "F");
+		}
+
+		const valorTotal =
+			parseFloat(item.total.replace("R$", "").replace(",", ".")) || 0;
+		subtotal += valorTotal;
+
+		doc.text(item.servico.substring(0, 25), 20, y + 5);
+		doc.text(item.corte || "0", 85, y + 5);
+		doc.text(item.metros || "0", 105, y + 5);
+		doc.text(`R$ ${parseFloat(item.valorMetro || 0).toFixed(2)}`, 130, y + 5);
+		doc.text(`R$ ${parseFloat(item.pu || 0).toFixed(2)}`, 155, y + 5);
+		doc.text(item.total, 175, y + 5);
+
 		y += 8;
 	});
 
+	// TOTAIS
 	y += 5;
-	doc.text("Total: " + o.totalGeral, 10, y);
+	doc.setDrawColor(...azulPrimario);
+	doc.line(15, y, 195, y);
 
-	doc.save("orcamento.pdf");
-}
+	y += 10;
+	doc.setFontSize(11);
+	doc.setFont(undefined, "bold");
+	doc.setTextColor(...azulSecundario);
+	doc.text("SUBTOTAL:", 140, y);
+	doc.text(`R$ ${subtotal.toFixed(2)}`, 175, y);
 
-// 🔥 WHATSAPP
-function enviarWhats(index) {
-	let o = orcamentos[index];
+	y += 8;
+	doc.text("TOTAL GERAL:", 140, y);
+	doc.setFontSize(14);
+	doc.setTextColor(...azulPrimario);
+	doc.text(o.totalGeral, 175, y);
 
-	let texto = `Orçamento - ${o.cliente}%0A`;
+	// OBSERVAÇÕES
+	y += 20;
+	doc.setFontSize(10);
+	doc.setFont(undefined, "bold");
+	doc.setTextColor(...azulSecundario);
+	doc.text("OBSERVAÇÕES:", 15, y);
 
-	o.itens.forEach((item) => {
-		texto += `${item.servico} - ${item.metros}m - ${item.total}%0A`;
-	});
+	y += 8;
+	doc.setFont(undefined, "normal");
+	doc.setTextColor(...cinzaTexto);
+	doc.text("• Orçamento válido por 30 dias", 15, y);
+	doc.text("• Materiais inclusos conforme especificação", 15, y + 6);
+	doc.text("• Instalação realizada por profissionais qualificados", 15, y + 12);
+	doc.text("• Garantia de 12 meses para serviços executados", 15, y + 18);
 
-	texto += `Total: ${o.totalGeral}`;
+	// RODAPÉ
+	y = 270;
+	doc.setFillColor(...azulSecundario);
+	doc.rect(0, y, 210, 27, "F");
 
-	window.open(`https://wa.me/?text=${texto}`);
-}
+	doc.setTextColor(255, 255, 255);
+	doc.setFontSize(8);
+	doc.text("CalhaControl - Soluções em Calhas e Coberturas", 15, y + 8);
+	doc.text(
+		"Este orçamento foi gerado automaticamente pelo sistema CalhaControl",
+		15,
+		y + 14,
+	);
+	doc.text(`Gerado em: ${new Date().toLocaleString("pt-BR")}`, 15, y + 20);
 
-// 🔥 DASHBOARD (FATURAMENTO)
-function calcularFaturamento() {
-	let total = 0;
-
-	orcamentos.forEach((o) => {
-		if (o.status === "aprovado") {
-			let valor = parseFloat(o.totalGeral.replace("R$", "")) || 0;
-			total += valor;
-		}
-	});
-
-	console.log("Faturamento:", total);
-	return total;
+	// Salvar PDF
+	const nomeArquivo = `Orcamento_${clienteInfo.nome.replace(/\s+/g, "_")}_${numeroOrcamento}.pdf`;
+	doc.save(nomeArquivo);
 }
 
 // 🔥 INICIAR
