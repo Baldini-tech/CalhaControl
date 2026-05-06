@@ -162,7 +162,7 @@ function adicionarItem() {
         <td><input type="number" class="metros" placeholder="0"></td>
         <td><input type="number" class="valorMetro" placeholder="0"></td>
         <td><input type="number" class="pu" placeholder="0"></td>
-        <td class="total">R$ 0.00</td>
+        <td class="total">R$ 0,00</td>
         <td><button onclick="removerLinha(this)">🗑️</button></td>
     `;
 
@@ -192,7 +192,9 @@ function atualizarCalculo(linha) {
 
 		let resultado = v * c * m + p;
 
-		total.innerHTML = "R$ " + resultado.toFixed(2);
+		// Formatar o resultado com vírgula
+		let resultadoFormatado = resultado.toFixed(2).replace(".", ",");
+		total.innerHTML = "R$ " + resultadoFormatado;
 		atualizarTotalGeral();
 	}
 
@@ -208,11 +210,15 @@ function atualizarTotalGeral() {
 	let soma = 0;
 
 	totais.forEach((td) => {
-		let valor = parseFloat(td.innerText.replace("R$", "")) || 0;
+		// Limpar e converter o valor corretamente
+		let textoValor = td.innerText.replace("R$", "").replace(",", ".").trim();
+		let valor = parseFloat(textoValor) || 0;
 		soma += valor;
 	});
 
-	document.getElementById("totalGeral").innerText = "R$ " + soma.toFixed(2);
+	// Formatar o total com vírgula para exibição
+	let totalFormatado = soma.toFixed(2).replace(".", ",");
+	document.getElementById("totalGeral").innerText = "R$ " + totalFormatado;
 }
 
 // 🔥 SALVAR OU EDITAR
@@ -248,7 +254,9 @@ function salvarOrcamento() {
 		status,
 		itens,
 		totalGeral,
-		total: parseFloat(totalGeral.replace("R$", "").replace(",", ".")) || 0,
+		// Converter o total para número, tratando vírgula como separador decimal
+		total:
+			parseFloat(totalGeral.replace("R$", "").replace(",", ".").trim()) || 0,
 	};
 
 	if (editIndex !== null) {
@@ -267,7 +275,7 @@ function salvarOrcamento() {
 function limparTela() {
 	document.getElementById("cliente").value = "";
 	document.getElementById("itens").innerHTML = "";
-	document.getElementById("totalGeral").innerText = "R$ 0.00";
+	document.getElementById("totalGeral").innerText = "R$ 0,00";
 	document.getElementById("status").value = "pendente";
 
 	// Fechar sugestões se estiverem abertas
@@ -337,183 +345,365 @@ function editar(index) {
 	document.getElementById("totalGeral").innerText = o.totalGeral;
 }
 
-// 🔥 PDF PROFISSIONAL ESTILIZADO
+// 🔥 PDF COM NOTIFICAÇÃO E CORREÇÃO DE SOBREPOSIÇÃO
 function gerarPDF(index) {
-	const { jsPDF } = window.jspdf;
-	let doc = new jsPDF();
+	try {
+		// Mostrar notificação de processamento
+		mostrarNotificacao("Processando orçamento...", "info", 2000);
 
-	let o = orcamentos[index];
-	let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
-	let clienteInfo = clientes.find((c) => c.nome === o.cliente) || {
-		nome: o.cliente,
-		telefone: "",
-		email: "",
-	};
+		const { jsPDF } = window.jspdf;
+		let doc = new jsPDF();
 
-	// Cores
-	const azulPrimario = [31, 111, 235];
-	const azulSecundario = [0, 35, 68];
-	const cinzaTexto = [64, 64, 64];
-	const cinzaClaro = [240, 240, 240];
+		let o = orcamentos[index];
+		let clientes = JSON.parse(localStorage.getItem("Clientes")) || [];
+		let clienteInfo = clientes.find((c) => c.nome === o.cliente) || {
+			nome: o.cliente,
+			telefone: "",
+			email: "",
+			endereco: "",
+		};
 
-	// CABEÇALHO DA EMPRESA
-	doc.setFillColor(...azulPrimario);
-	doc.rect(0, 0, 210, 35, "F");
+		// Cores
+		const azulPrimario = [31, 111, 235];
+		const azulSecundario = [0, 35, 68];
+		const pretoTexto = [0, 0, 0];
+		const cinzaEscuro = [200, 200, 200];
 
-	// Logo/Nome da empresa
-	doc.setTextColor(255, 255, 255);
-	doc.setFontSize(24);
-	doc.setFont(undefined, "bold");
-	doc.text("CalhaControl", 15, 20);
+		// CABEÇALHO DA EMPRESA
+		doc.setFillColor(...azulPrimario);
+		doc.rect(0, 0, 210, 35, "F");
 
-	doc.setFontSize(10);
-	doc.setFont(undefined, "normal");
-	doc.text("Soluções em Calhas e Coberturas", 15, 28);
+		// Logo/Nome da empresa
+		doc.setTextColor(255, 255, 255);
+		doc.setFontSize(24);
+		doc.setFont(undefined, "bold");
+		doc.text("MN Calhas", 15, 10);
 
-	// Informações da empresa (lado direito)
-	doc.setFontSize(9);
-	doc.text("Tel: (11) 99999-9999", 140, 15);
-	doc.text("Email: contato@calhacontrol.com", 140, 20);
-	doc.text("Site: www.calhacontrol.com", 140, 25);
-	doc.text("CNPJ: 00.000.000/0001-00", 140, 30);
+		doc.setFontSize(10);
+		doc.setFont(undefined, "normal");
+		doc.text("Soluções em Calhas, Rufos e Condutores", 15, 15);
 
-	// TÍTULO DO ORÇAMENTO
-	doc.setTextColor(...azulSecundario);
-	doc.setFontSize(18);
-	doc.setFont(undefined, "bold");
-	doc.text("ORÇAMENTO", 15, 50);
+		doc.setFontSize(10);
+		doc.setFont(undefined, "normal");
+		doc.text("Endereço: Travessa 7  n° 640 FD", 15, 25);
 
-	// Número e data do orçamento
-	doc.setFontSize(10);
-	doc.setFont(undefined, "normal");
-	const dataAtual = new Date().toLocaleDateString("pt-BR");
-	const numeroOrcamento = `#${String(o.id || Date.now()).slice(-6)}`;
+		doc.setFontSize(10);
+		doc.setFont(undefined, "normal");
+		doc.text("Bairro: Jardim Bandeirantes   Orlândia-SP", 15, 30);
 
-	doc.text(`Número: ${numeroOrcamento}`, 140, 45);
-	doc.text(`Data: ${dataAtual}`, 140, 50);
-	doc.text(`Status: ${o.status.toUpperCase()}`, 140, 55);
+		// Informações da empresa (lado direito)
+		doc.setFontSize(9);
+		doc.text("Tel: (16) 3726-3606", 150, 13);
+		doc.text("Cel: (16) 99979-0603", 150, 17);
+		doc.text("Cel: (16) 99211-9315", 150, 22);
 
-	// INFORMAÇÕES DO CLIENTE
-	let y = 70;
-	doc.setFillColor(...cinzaClaro);
-	doc.rect(15, y - 5, 180, 25, "F");
+		// TÍTULO DO ORÇAMENTO
+		doc.setTextColor(...azulSecundario);
+		doc.setFontSize(18);
+		doc.setFont(undefined, "bold");
+		doc.text("ORÇAMENTO", 15, 50);
 
-	doc.setTextColor(...azulSecundario);
-	doc.setFontSize(12);
-	doc.setFont(undefined, "bold");
-	doc.text("DADOS DO CLIENTE", 20, y + 5);
+		doc.setFontSize(10);
+		doc.setFont(undefined, "normal");
+		doc.text("• Profissional responsável: Marco Antônio", 15, 60);
 
-	doc.setTextColor(...cinzaTexto);
-	doc.setFontSize(10);
-	doc.setFont(undefined, "normal");
-	doc.text(`Nome: ${clienteInfo.nome}`, 20, y + 12);
-	doc.text(`Telefone: ${clienteInfo.telefone}`, 20, y + 18);
-	doc.text(`Email: ${clienteInfo.email}`, 110, y + 12);
+		// Número e data do orçamento
+		doc.setFontSize(10);
+		doc.setFont(undefined, "normal");
+		const dataAtual = new Date().toLocaleDateString("pt-BR");
+		const numeroOrcamento = `#${String(o.id || Date.now()).slice(-6)}`;
 
-	// TABELA DE ITENS
-	y += 35;
-	doc.setTextColor(...azulSecundario);
-	doc.setFontSize(12);
-	doc.setFont(undefined, "bold");
-	doc.text("ITENS DO ORÇAMENTO", 15, y);
+		doc.text(`Número: ${numeroOrcamento}`, 140, 45);
+		doc.text(`Data: ${dataAtual}`, 140, 50);
+		doc.text(`Status: ${o.status.toUpperCase()}`, 140, 55);
 
-	y += 10;
+		// INFORMAÇÕES DO CLIENTE
+		let y = 70;
+		doc.setFillColor(...cinzaEscuro);
+		doc.rect(15, y - 5, 180, 25, "F");
 
-	// Cabeçalho da tabela
-	doc.setFillColor(...azulPrimario);
-	doc.rect(15, y, 180, 8, "F");
+		doc.setTextColor(...azulSecundario);
+		doc.setFontSize(12);
+		doc.setFont(undefined, "bold");
+		doc.text("DADOS DO CLIENTE", 20, y + 2);
 
-	doc.setTextColor(255, 255, 255);
-	doc.setFontSize(9);
-	doc.setFont(undefined, "bold");
-	doc.text("SERVIÇO", 20, y + 5);
-	doc.text("QTD", 85, y + 5);
-	doc.text("METROS", 105, y + 5);
-	doc.text("VALOR/M", 130, y + 5);
-	doc.text("P.U.", 155, y + 5);
-	doc.text("TOTAL", 175, y + 5);
+		doc.setTextColor(...pretoTexto);
+		doc.setFontSize(10);
+		doc.setFont(undefined, "normal");
+		doc.text(`Nome: ${clienteInfo.nome}`, 20, y + 10);
+		doc.text(`Telefone: ${clienteInfo.telefone}`, 20, y + 15);
+		doc.text(`Email: ${clienteInfo.email}`, 110, y + 10);
+		doc.text(`Endereço: ${clienteInfo.endereco || ""}`, 110, y + 15);
 
-	y += 8;
+		// TABELA DE ITENS
+		y += 35;
+		doc.setTextColor(...azulSecundario);
+		doc.setFontSize(12);
+		doc.setFont(undefined, "bold");
+		doc.text("ITENS DO ORÇAMENTO", 15, y);
 
-	// Itens da tabela
-	doc.setTextColor(...cinzaTexto);
-	doc.setFont(undefined, "normal");
+		y += 10;
 
-	let subtotal = 0;
-	o.itens.forEach((item, index) => {
-		// Linha alternada
-		if (index % 2 === 0) {
-			doc.setFillColor(250, 250, 250);
-			doc.rect(15, y, 180, 8, "F");
-		}
+		// Cabeçalho da tabela
+		doc.setFillColor(...azulPrimario);
+		doc.rect(15, y, 180, 8, "F");
 
-		const valorTotal =
-			parseFloat(item.total.replace("R$", "").replace(",", ".")) || 0;
-		subtotal += valorTotal;
-
-		doc.text(item.servico.substring(0, 25), 20, y + 5);
-		doc.text(item.corte || "0", 85, y + 5);
-		doc.text(item.metros || "0", 105, y + 5);
-		doc.text(`R$ ${parseFloat(item.valorMetro || 0).toFixed(2)}`, 130, y + 5);
-		doc.text(`R$ ${parseFloat(item.pu || 0).toFixed(2)}`, 155, y + 5);
-		doc.text(item.total, 175, y + 5);
+		doc.setTextColor(255, 255, 255);
+		doc.setFontSize(9);
+		doc.setFont(undefined, "bold");
+		doc.text("SERVIÇO", 20, y + 5);
+		doc.text("METROS", 105, y + 5);
+		doc.text("TOTAL", 175, y + 5);
 
 		y += 8;
-	});
 
-	// TOTAIS
-	y += 5;
-	doc.setDrawColor(...azulPrimario);
-	doc.line(15, y, 195, y);
+		// Itens da tabela
+		doc.setTextColor(...pretoTexto);
+		doc.setFont(undefined, "normal");
 
-	y += 10;
-	doc.setFontSize(11);
-	doc.setFont(undefined, "bold");
-	doc.setTextColor(...azulSecundario);
-	doc.text("SUBTOTAL:", 140, y);
-	doc.text(`R$ ${subtotal.toFixed(2)}`, 175, y);
+		let subtotal = 0;
+		o.itens.forEach((item, index) => {
+			// Verificar se precisa de nova página
+			if (y > 270) {
+				doc.addPage();
+				y = 20;
+			}
 
-	y += 8;
-	doc.text("TOTAL GERAL:", 140, y);
-	doc.setFontSize(14);
-	doc.setTextColor(...azulPrimario);
-	doc.text(o.totalGeral, 175, y);
+			// Linha alternada
+			if (index % 2 === 0) {
+				doc.setFillColor(250, 250, 250);
+				doc.rect(15, y, 180, 8, "F");
+			}
 
-	// OBSERVAÇÕES
-	y += 20;
-	doc.setFontSize(10);
-	doc.setFont(undefined, "bold");
-	doc.setTextColor(...azulSecundario);
-	doc.text("OBSERVAÇÕES:", 15, y);
+			const valorTotal =
+				parseFloat(item.total.replace("R$", "").replace(",", ".").trim()) || 0;
+			subtotal += valorTotal;
 
-	y += 8;
-	doc.setFont(undefined, "normal");
-	doc.setTextColor(...cinzaTexto);
-	doc.text("• Orçamento válido por 30 dias", 15, y);
-	doc.text("• Materiais inclusos conforme especificação", 15, y + 6);
-	doc.text("• Instalação realizada por profissionais qualificados", 15, y + 12);
-	doc.text("• Garantia de 12 meses para serviços executados", 15, y + 18);
+			doc.text(item.servico.substring(0, 25), 20, y + 5);
+			doc.text(item.metros || "0", 105, y + 5);
+			doc.text(item.total, 175, y + 5);
 
-	// RODAPÉ
-	y = 270;
-	doc.setFillColor(...azulSecundario);
-	doc.rect(0, y, 210, 27, "F");
+			y += 8;
+		});
 
-	doc.setTextColor(255, 255, 255);
-	doc.setFontSize(8);
-	doc.text("CalhaControl - Soluções em Calhas e Coberturas", 15, y + 8);
-	doc.text(
-		"Este orçamento foi gerado automaticamente pelo sistema CalhaControl",
-		15,
-		y + 14,
-	);
-	doc.text(`Gerado em: ${new Date().toLocaleString("pt-BR")}`, 15, y + 20);
+		// TOTAIS
+		y += 5;
+		doc.setDrawColor(...azulPrimario);
+		doc.line(15, y, 195, y);
 
-	// Salvar PDF
-	const nomeArquivo = `Orcamento_${clienteInfo.nome.replace(/\s+/g, "_")}_${numeroOrcamento}.pdf`;
-	doc.save(nomeArquivo);
+		y += 10;
+
+		if (y > 200) {
+			doc.addPage();
+			y = 20;
+		}
+		doc.setFontSize(11);
+		doc.setFont(undefined, "bold");
+		doc.setTextColor(...azulSecundario);
+		doc.text("SUBTOTAL:", 140, y);
+		doc.text(`R$ ${subtotal.toFixed(2).replace(".", ",")}`, 175, y);
+
+		y += 8;
+
+		if (y > 200) {
+			doc.addPage();
+			y = 20;
+		}
+		doc.text("TOTAL GERAL:", 140, y);
+		doc.setFontSize(14);
+		doc.setTextColor(...azulPrimario);
+		doc.text(o.totalGeral, 175, y);
+
+		// OBSERVAÇÕES
+		y += -10;
+		if (y > 220) {
+			doc.addPage();
+			y = 20;
+		}
+
+		doc.setFontSize(10);
+		doc.setFont(undefined, "bold");
+		doc.setTextColor(...azulSecundario);
+		doc.text("OBSERVAÇÕES:", 15, y);
+
+		y += 8;
+		doc.setFont(undefined, "normal");
+		doc.setTextColor(...pretoTexto);
+		doc.text("• Orçamento válido por 30 dias", 15, y);
+		doc.text("• Materiais inclusos conforme especificação", 15, y + 6);
+		doc.text(
+			"• Instalação realizada por profissionais qualificados",
+			15,
+			y + 12,
+		);
+
+		// RODAPÉ DINÂMICO
+		const alturaRodape = 27;
+		const margemInferior = 5;
+		let posicaoRodape = Math.max(y + 30, 100 - alturaRodape - margemInferior);
+
+		doc.setFillColor(...azulSecundario);
+		doc.rect(0, posicaoRodape, 210, alturaRodape, "F");
+
+		doc.setTextColor(255, 255, 255);
+		doc.setFontSize(8);
+		doc.text(
+			"CalhaControl - Sistema de Gestão de Oficinas de Calhas",
+			15,
+			posicaoRodape + 8,
+		);
+		doc.text(
+			"Este orçamento foi gerado automaticamente pelo sistema CalhaControl",
+			15,
+			posicaoRodape + 14,
+		);
+		doc.text(
+			`Gerado em: ${new Date().toLocaleString("pt-BR")}`,
+			15,
+			posicaoRodape + 20,
+		);
+
+		// Armazenar PDF e nome do arquivo
+		const nomeArquivo = `Orcamento_${clienteInfo.nome.replace(/\s+/g, "_")}_${numeroOrcamento}.pdf`;
+		pdfGerado = { doc, nomeArquivo };
+
+		// Mostrar notificação com ações após um pequeno delay
+		setTimeout(() => {
+			mostrarNotificacao(
+				`PDF do orçamento de ${clienteInfo.nome} está pronto!`,
+				"success",
+				0,
+				[
+					{
+						texto: "Baixar",
+						tipo: "primary",
+						funcao: "baixarPDF()",
+					},
+					{
+						texto: "Cancelar",
+						tipo: "secondary",
+						funcao: "cancelarPDF()",
+					},
+				],
+			);
+		}, 1000);
+	} catch (error) {
+		console.error("Erro ao gerar PDF:", error);
+		mostrarNotificacao("Erro ao gerar PDF. Tente novamente.", "error", 4000);
+	}
 }
 
 // 🔥 INICIAR
 carregarClientes();
 listarOrcamentos();
+
+// 🔥 SISTEMA DE NOTIFICAÇÕES
+function mostrarNotificacao(
+	mensagem,
+	tipo = "success",
+	duracao = 3000,
+	acoes = null,
+) {
+	const notificacaoExistente = document.querySelector(".notification-popup");
+	if (notificacaoExistente) {
+		notificacaoExistente.remove();
+	}
+
+	const notificacao = document.createElement("div");
+	notificacao.className = `notification-popup ${tipo}`;
+
+	if (acoes) {
+		notificacao.classList.add("with-actions");
+	}
+
+	let icone = "";
+	switch (tipo) {
+		case "success":
+			icone = "fa-check-circle";
+			break;
+		case "error":
+			icone = "fa-exclamation-circle";
+			break;
+		case "info":
+			icone = "fa-info-circle";
+			break;
+		case "warning":
+			icone = "fa-exclamation-triangle";
+			break;
+		default:
+			icone = "fa-check-circle";
+	}
+
+	let html = `
+        <div class="notification-content">
+            <i class="fa-solid ${icone}"></i>
+            <span>${mensagem}</span>
+        </div>
+    `;
+
+	if (acoes) {
+		html += `
+            <div class="notification-actions">
+                ${acoes
+									.map(
+										(acao) =>
+											`<button class="action-btn ${acao.tipo}" onclick="${acao.funcao}">${acao.texto}</button>`,
+									)
+									.join("")}
+            </div>
+            <button class="close-btn-actions" onclick="fecharNotificacao(this)">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        `;
+		duracao = 0;
+	} else {
+		html += `
+            <button class="close-btn" onclick="fecharNotificacao(this)">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        `;
+	}
+
+	notificacao.innerHTML = html;
+	document.body.appendChild(notificacao);
+
+	setTimeout(() => notificacao.classList.add("show"), 100);
+
+	if (duracao > 0) {
+		setTimeout(() => fecharNotificacao(notificacao), duracao);
+	}
+
+	return notificacao;
+}
+
+function fecharNotificacao(elemento) {
+	const notificacao = elemento.classList
+		? elemento
+		: elemento.closest(".notification-popup");
+	notificacao.classList.remove("show");
+	setTimeout(() => {
+		if (notificacao.parentElement) {
+			notificacao.remove();
+		}
+	}, 300);
+}
+
+// Variável global para armazenar o PDF gerado
+let pdfGerado = null;
+
+// Função para baixar o PDF
+function baixarPDF() {
+	if (pdfGerado) {
+		pdfGerado.doc.save(pdfGerado.nomeArquivo);
+		mostrarNotificacao("PDF baixado com sucesso!", "success", 3000);
+		pdfGerado = null;
+	}
+	fecharNotificacao(document.querySelector(".notification-popup"));
+}
+
+// Função para cancelar o download
+function cancelarPDF() {
+	pdfGerado = null;
+	mostrarNotificacao("Download cancelado", "info", 2000);
+	fecharNotificacao(document.querySelector(".notification-popup"));
+}

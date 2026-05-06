@@ -9,13 +9,14 @@ function cadastrarCliente() {
 	let nome = document.getElementById("nome").value;
 	let telefone = document.getElementById("telefone").value;
 	let endereco = document.getElementById("endereco").value;
+	let email = document.getElementById("email").value;
 
 	if (nome === "" || telefone === "") {
 		alert("Preencha os campos obrigatórios!");
 		return;
 	}
 
-	let cliente = { nome, telefone, endereco };
+	let cliente = { nome, telefone, endereco, email };
 
 	if (editIndex !== null) {
 		clientes[editIndex] = cliente;
@@ -32,6 +33,7 @@ function cadastrarCliente() {
 	document.getElementById("nome").value = "";
 	document.getElementById("telefone").value = "";
 	document.getElementById("endereco").value = "";
+	document.getElementById("email").value = "";
 }
 
 function listarClientes() {
@@ -44,6 +46,7 @@ function listarClientes() {
                 <td>${c.nome}</td>
                 <td>${c.telefone}</td>
                 <td>${c.endereco}</td>
+				<td>${c.email}</td>
                 <td>
                     <button title="Editar" onclick="editar(${index})"><i class="fa-solid fa-pen-to-square" style="color: #1f6feb;"></i></button>
                     <button title="Excluir" onclick="excluir(${index})"><i class="fa-solid fa-trash" style="color: rgb(255, 0, 0);"></i></button>

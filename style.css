@@ -235,6 +235,7 @@ button:hover {
 #tabelaClientes th:nth-child(2), #tabelaClientes td:nth-child(2) { width: 20%; text-align: center; }
 #tabelaClientes th:nth-child(3), #tabelaClientes td:nth-child(3) { width: 20%; text-align: center; }
 #tabelaClientes th:nth-child(4), #tabelaClientes td:nth-child(4) { width: 20%; text-align: center; }
+#tabelaClientes th:nth-child(5), #tabelaClientes td:nth-child(5) { width: 20%; text-align: center; }
 
 /* alinhamento das tabelas em serviços */
 #tabelaServicos {
@@ -557,4 +558,147 @@ body.dark .novo-cliente:hover {
 
 body.dark .novo-cliente .sugestao-nome {
     color: #58a6ff;
+}
+
+/* POP-UP DE NOTIFICAÇÃO */
+.notification-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+}
+
+.notification-popup.show {
+    transform: translateX(0);
+}
+
+.notification-popup.success {
+    background: #28a745;
+}
+
+.notification-popup.error {
+    background: #dc3545;
+}
+
+.notification-popup.info {
+    background: #17a2b8;
+}
+
+.notification-popup.warning {
+    background: #f0ad4e;
+}
+
+.notification-popup i {
+    font-size: 18px;
+}
+
+.notification-popup .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.notification-popup .close-btn:hover {
+    opacity: 0.7;
+}
+
+/* POP-UP DE NOTIFICAÇÃO COM AÇÕES */
+.notification-popup.with-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    min-width: 300px;
+    padding: 20px;
+}
+
+.notification-popup .notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.notification-popup .notification-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.notification-popup .action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.notification-popup .action-btn.primary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.notification-popup .action-btn.primary:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.notification-popup .action-btn.secondary {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.notification-popup .action-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.notification-popup .close-btn-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.notification-popup .close-btn-actions:hover {
+    opacity: 0.7;
+}
+
+/* DARK MODE - NOTIFICAÇÃO */
+body.dark .notification-popup.success {
+    background: #238636;
+}
+
+body.dark .notification-popup.error {
+    background: #da3633;
+}
+
+body.dark .notification-popup.info {
+    background: #1f6feb;
+}
+
+body.dark .notification-popup.warning {
+    background: #e8a317;
 }
