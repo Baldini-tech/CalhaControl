@@ -19,7 +19,15 @@ function integrarOrcamentos() {
 				let receita = {
 					tipo: "receita",
 					descricao: `Serviço Finalizado - ${nomeCliente}`,
-					valor: parseFloat(orc.totalGeral.replace('R$', '').replace(',', '.')) || 0,
+					valor:
+						orc.total ||
+						parseFloat(
+							orc.totalGeral
+								.replace(/R\$\s*/g, "")
+								.replace(/\./g, "")
+								.replace(",", "."),
+						) ||
+						0,
 					data: new Date().toISOString().split("T")[0],
 					categoria: "servicos",
 					id: Date.now() + Math.random(),
@@ -164,12 +172,20 @@ function atualizarSaldosOrcamentos() {
 	let saldoPendente = 0;
 	let saldoPositivo = 0;
 
-	orcamentos.forEach(orc => {
-		const valor = parseFloat(orc.totalGeral.replace('R$', '').replace(',', '.')) || 0;
-		
-		if (orc.status === 'aprovado') {
+	orcamentos.forEach((orc) => {
+		const valor =
+			orc.total ||
+			parseFloat(
+				orc.totalGeral
+					.replace(/R\$\s*/g, "")
+					.replace(/\./g, "")
+					.replace(",", "."),
+			) ||
+			0;
+
+		if (orc.status === "aprovado") {
 			saldoPendente += valor;
-		} else if (orc.status === 'finalizado') {
+		} else if (orc.status === "finalizado") {
 			saldoPositivo += valor;
 		}
 	});
@@ -357,10 +373,3 @@ atualizarResumo();
 
 // Criar gráficos após carregar dados
 setTimeout(criarGraficosFinanceiros, 100);
-
-// Função de logout
-function logout() {
-	if (confirm("Tem certeza que deseja sair do sistema?")) {
-		window.location.href = "login.html";
-	}
-}
