@@ -87,6 +87,7 @@ function editar(index) {
 	document.getElementById("nome").value = c.nome;
 	document.getElementById("telefone").value = c.telefone;
 	document.getElementById("endereco").value = c.endereco;
+	document.getElementById("email").value = c.email;
 	document.querySelector("button[onclick='cadastrarCliente()']").innerText =
 		"Atualizar";
 }
