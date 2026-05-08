@@ -166,7 +166,7 @@ th, td {
 /* Clientes */
 input {
     display: block;
-    width: 100%;
+    width: stretch;
     padding: 10px;
     margin: 10px 0;
     border-radius: 8px;
@@ -429,15 +429,6 @@ body.dark #tabelaServicos td:last-child button {
     margin-bottom: 5px;
     font-weight: bold;
     color: #333;
-}
-
-.cliente-search input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s;
 }
 
 .cliente-search input:focus {

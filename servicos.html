@@ -58,11 +58,16 @@
 			<div class="card">
 				<h3>Novo Serviço</h3>
 
-				<select id="cliente">
-					<option value="">Selecione o Cliente</option>
-				</select>
-				<input type="text" id="descricao" placeholder="Descrição do Serviço" />
-				<input type="date" id="data" />
+				<div class="cliente-search">
+					<label for="cliente">Cliente:</label>
+					<input
+						type="text"
+						id="cliente"
+						placeholder="Digite o nome do cliente..."
+						autocomplete="off"
+					/>
+					<div id="clienteSugestoes" class="sugestoes"></div>
+				</div>
 
 				<select id="status">
 					<option value="pendente">Pendente</option>
