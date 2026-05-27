@@ -362,33 +362,44 @@ function gerarPDF(index) {
 		const pretoTexto = [0, 0, 0];
 		const cinzaEscuro = [200, 200, 200];
 
+		// Buscar dados da oficina logada
+		const oficinaLogada = JSON.parse(localStorage.getItem("oficinaLogada")) || {
+			nome: "Oficina Modelo",
+			telefone1: "99 99999-9999",
+			telefone2: "88 88888-8888",
+			endereco: "Rua Exemplo, 123 - Cidade - Estado",
+			responsavel: "Responsável Padrão",
+		};
+
+		// Cabeçalho com dados da oficina
 		doc.setFillColor(...azulPrimario);
 		doc.rect(0, 0, 210, 35, "F");
 
 		doc.setTextColor(255, 255, 255);
 		doc.setFontSize(24);
 		doc.setFont(undefined, "bold");
-		doc.text("MN Calhas", 15, 10);
+		doc.text(oficinaLogada.nome, 15, 10);
 
 		doc.setFontSize(10);
 		doc.setFont(undefined, "normal");
 		doc.text("Soluções em Calhas, Rufos e Condutores", 15, 15);
-		doc.text("Endereço: Travessa 7  n° 640 FD", 15, 25);
-		doc.text("Bairro: Jardim Bandeirantes   Orlândia-SP", 15, 30);
+		doc.text(oficinaLogada.endereco, 15, 25);
 
 		doc.setFontSize(9);
-		doc.text("Tel: (16) 3726-3606", 150, 13);
-		doc.text("Cel: (16) 99979-0603", 150, 17);
-		doc.text("Cel: (16) 99211-9315", 150, 22);
+		doc.text(`Tel: ${oficinaLogada.telefone1}`, 150, 13);
+		if (oficinaLogada.telefone2) {
+			doc.text(`Cel: ${oficinaLogada.telefone2}`, 150, 17);
+		}
 
+		// Responsável
 		doc.setTextColor(...azulSecundario);
-		doc.setFontSize(18);
-		doc.setFont(undefined, "bold");
-		doc.text("ORÇAMENTO", 15, 50);
-
 		doc.setFontSize(10);
 		doc.setFont(undefined, "normal");
-		doc.text("• Profissional responsável: Marco Antônio", 15, 60);
+		doc.text(
+			`• Profissional responsável: ${oficinaLogada.responsavel}`,
+			15,
+			60,
+		);
 
 		const dataAtual = new Date().toLocaleDateString("pt-BR");
 		const numeroOrcamento = `#${String(o.id || Date.now()).slice(-6)}`;

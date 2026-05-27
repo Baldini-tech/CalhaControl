@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Login - CalhaControl</title>
+		<link rel="stylesheet" href="css/login.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		/>
+	</head>
+	<body>
+		<div class="login-container">
+			<div class="login-box">
+				<div class="logo-login">
+					<img src="img/calhacontrol_transparente.png" alt="CalhaControl" />
+				</div>
+				<h1>Login</h1>
+				<input type="text" id="nomeEmpresa" placeholder="Nome da Empresa" />
+				<input type="text" id="senhaConta" placeholder="Senha" />
+				<button
+					class="btn-cadastro"
+					onclick="window.location.href = 'registrar.html'"
+				>
+					<i class="fa-solid fa-id-card"></i> Registrar
+				</button>
+				<button onclick="fazerLogin()">
+					<i class="fa-solid fa-right-to-bracket"></i> Entrar
+				</button>
+			</div>
+		</div>
+		<script src="login.js"></script>
+	</body>
+</html>

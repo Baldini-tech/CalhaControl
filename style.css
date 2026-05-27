@@ -78,6 +78,70 @@ body {
     border-radius: 0 5px 5px 0;
 }
 
+.user-area {
+    position: fixed;
+    top: 16px;
+    right: 70px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.user-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: white;
+    color: #0f2a44;
+    font-size: 13px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.user-summary span {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-button,
+.logout-button {
+    width: auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.logout-button:hover {
+    background: #9f1f2d;
+}
+
+.logout.dark:hover {
+    background: #9f1f2d;
+}
+
+body.dark .user-summary {
+    background: #161b22;
+    color: #e6edf3;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+
+.perfil-modal {
+    max-width: 420px;
+}
+
+.perfil-dados {
+    text-align: left;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
 .sidebar footer {
     padding: 26px;
     text-align: center;
